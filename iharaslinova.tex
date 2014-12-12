@@ -1,0 +1,138 @@
+%% Requires fithesis2 module (can be downloaded from
+%% https://github.com/arax/fithesis2
+%% Load document class fithesis2
+%% {10pt, 11pt, 12pt}
+%% {draft, final}
+%% {oneside, twoside}
+%% {onecolumn, twocolumn}
+%% sudo yum install texlive texlive-babel-czech texlive-hyphen-czech 
+ 
+\documentclass[10pt,final,oneside]{fithesis2}
+\pdfoptionpdfminorversion 7
+
+%% Basic packages
+\usepackage[czech]{babel}
+\usepackage{cmap}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+%% Additional packages for colors, advanced
+%% formatting options, etc.
+\usepackage{color}
+\usepackage{microtype}
+\usepackage{url}
+\usepackage{cslatexquotes}
+\usepackage{fancyvrb}
+\usepackage[small,bf]{caption}
+\usepackage[plainpages=false,pdfpagelabels,unicode]{hyperref}
+\usepackage[all]{hypcap}
+\usepackage{amssymb}
+\usepackage{courier}
+\usepackage{listings}
+\usepackage{pdfpages}
+
+%% Fix long URLs in DVIs
+\usepackage{ifpdf}
+
+\ifpdf
+\else
+  \usepackage{breakurl}
+\fi
+
+%% Packages used to generate various lists
+\usepackage{makeidx}
+\makeindex
+
+\usepackage[acronym]{glossaries}
+\makeglossaries
+
+\include{tex/glossary}
+
+%% Use STAR and CIRCLE signs for nested
+%% itemized lists
+\renewcommand{\labelitemii}{$\star$}
+\renewcommand{\labelitemiii}{$\circ$}
+
+%% Title page information
+\thesistitle{Service-oriented architecture versioning analysis and application in corporate environment}
+\thesissubtitle{Diploma thesis}
+\thesisstudent{Ivana Haraslínová}
+\thesiswoman{false} %% Important when using Slovak or Czech lang
+\thesisfaculty{fi}  %% {fi, eco, law, sci, fsps, phil, ped, med, fss}
+\thesislang{en}     %% {en, sk, cs}
+\thesisyear{2014}
+\thesisadvisor{Ing. Leonard Walletzký, Ph.D}
+
+%% Beginning of the document
+\begin{document}
+
+%% Front page with a logo and basic thesis information
+\FrontMatter
+\ThesisTitlePage
+
+
+%% Thesis declaration (required)
+\begin{ThesisDeclaration}
+  \DeclarationText
+  \AdvisorName
+\end{ThesisDeclaration}
+
+%%\chapter*{Zadání práce}
+%%
+
+\begin{ThesisThanks}
+
+\end{ThesisThanks}
+
+\begin{ThesisAbstract}
+
+\end{ThesisAbstract}
+
+%% Keywords (required)git
+\begin{ThesisKeyWords}
+
+\end{ThesisKeyWords}
+
+%% Beginning of the thesis itself
+\MainMatter
+
+%% TOC (required)
+\tableofcontents
+
+%% Thesis text structured using
+%% chapters, sections, subsections, etc.
+%%\include{tex/introduction}
+\include{tex/soc}
+\include{tex/rest}
+%% \include{tex/vyvoj}
+%%\include{tex/conclusion}
+
+%% Lists of tables and figures, glossary, etc.
+\printindex
+\printglossary[type=\acronymtype,title={Abbrevations}]
+\printglossary
+\listoffigures
+\listoftables
+
+%% Bibliography from references.bib
+\begingroup
+\def\tmpchapter{0}
+\renewcommand{\chaptername}{}
+\renewcommand{\thechapter}{}
+%\addtocontents{toc}{\setcounter{tocdepth}{-1}}
+\chapter{References}
+\renewcommand{\chapter}[2]{}% for other classes
+
+\bibliographystyle{plain}
+\bibliography{iharaslinova}
+
+%\addtocontents{toc}{\setcounter{tocdepth}{2}}
+\endgroup
+
+%% Additional materials
+\appendix
+
+%% End of the whole document
+\end{document}
