@@ -1,0 +1,76 @@
+\chapter{Versioning of REST-ful services}
+\label{chap:versioning}
+
+Versioning determines the creation and management of releases of a product. The product carries the main logic of the application and version is created when the customization is needed. It means that each client uses the same product and its concrete version which can differ according to the requirements of the customer or due the improvement of funcionality. 
+
+\begin{table}
+  \caption{Porovnání technologií použitých na lokálním a produkčním prostředí}
+  \begin{tabular}{ | p{3cm} | p{4cm} | p{4cm} | }
+    \hline  
+    & Vývojové prostředí & Produkční prostředí \\ \hline
+    HTTP Server & Lighttpd & Apache \\ \hline
+    SQL databáze & SQLite & MySQL \\ \hline
+    JAVA Servlet Container & Apache Tomcat 7 & Apache Tomcat 7 \\ \hline
+    Vzdálená plocha & Windows Server 2008 SP2 (Oracle VM VirtualBox) & ASPI \\ \hline
+  \end{tabular}
+\end{table}
+
+Protože \emph{Drupal} je postaven z velké části na konfiguraci uložené v databázi, bylo potřeba vymyslet způsob, jak změny prováděné na lokálním stroji efektivně přenášet do produkčního prostředí. Pro uložení nastavení do konfiguračních souborů byl použit projekt \emph{Features} (sekce \ref{subsec:features}), který exportuje pomocí funkcionality poskytnuté modulem \emph{CTools}\footnote{https://drupal.org/project/ctools} nastavení (typy obsahu a pod.) a také pomocí modulu \emph{Strongarm}\footnote{https://drupal.org/project/strongarm} nastavení systému samotného. Všechna tato nastavení jsou pak uložena do modulu a mohou pak být jednoduše přenesena na jiné prostředí a aktualizována v průběhu času a s pokračujícím vývojem. Pro udržení přehlednosti byla konfigurace rozdělena na tři části:
+
+\begin{description}
+  \item[ESF Feature (esf\_feature)] \hfill \\ 
+  základní nastavení systému včetně typů obsahů, vztahů mezi nimi, metody zadávání obsahu (WYSIWYG) a základní prvky zobrazené na stránkách
+  \item[ESF Feature UI (esf\_feature\_ui)] \hfill \\ 
+  administrační rozhraní pro správu obsahu a nádstavba nad modulem Workbench (viz. sekce \ref{subsec:workbench}), poskytující náhled na jednotlivé typy obsahu stránek
+  \item[ESF Permissions (esf\_permissions)] \hfill \\ 
+  definice uživatelských rolí a jejich práv
+\end{description}
+
+Moduly jsou uloženy v \emph{GIT} repozitáři a tím je zajištěno jejich verzování. V případě potřeby je možné je doručit do produkčního prostředí a nastavení systému aktualizovat. V případě bezproblémové aktualizace (v komponentech popsaných v daném modulu nebyly manuálně provedeny žádné změny) se změny provedou automaticky – jinak musí být přes rozhraní či drush manuálně určeno, která změna se má využít a zda se případně nemá přepsat daný modul.
+
+Instalační skript a profil jsou generovány automaticky pomocí modulu \emph{Profile Builder}\footnote{https://drupal.org/project/profile\_builder}. Jeho výstupem je dávkový soubor \texttt{.make} a instalační profil. V dávkovém souboru je vypsán seznam modulů a jejich verzí, určený pro příkaz \texttt{\$ drush make}, který stáhne potřebné projekty z repozitáře \emph{Drupalu}. Po vytvoření je nutné ručně odstranit moduly esf\_*, které \emph{Drush} neumí automaticky stáhnout a instalace by selhala. Díky rozdělení na hlavní a doplňkový instalační skript je možné definovat url adresy ke knihovnám, které nelze automaticky doplnit a ty zároveň nejsou přepsány opětovným vygenerováním - hlavní instalační soubor je přesunut do kořenové složky a přejmenován na esf.make. V instalačním profilu esf\_profile jsou obsažena základní nastavení portálu a seznam modulů, které je nutné povolit ke správné funkčnosti stránek. Ke každému modulu lze přiřadit i opravné balíčky (patch), které jsou buď automaticky dohledány a jako odkazy přidány do profilu, nebo mohou být přidány dodatečně ručně. Při instalaci jsou automaticky aplikovány na kód. Díky propojení s features se na stránky dostane i definované nastavení a struktura.
+
+\section{Organizace řízení projektu}
+S ohledem na nízký počet zainteresovaných osob a rozsah projektu nebyly implementovány pokročilé metody projektového řízení a byl využit jednoduchý seznam úkolů. Zdrojový kód projektu  byl uložen na serveru \emph{GitHub} a jeho funkcionalita byla použita i k tomuto účelu. Ačkoliv se nemůže rovnat s platformami specializujícími se na správu úkolů, poskytuje \emph{GitHub} několik základních prvků - problém (issue), milník (milestone) a značku (tag). Značky lze využít pro rozlišení mezi úkolem a chybou a také důležitosti. Milníky byly využity pro jednoduché plánování a sledování pokroku.
+
+\subsection*{Označení úkolů}
+
+\subsubsection*{Typ}
+\begin{description}
+  \item[Úkol \emph{(task)}] \hfill \\
+    úkol, který bylo třeba vykonat na projektu
+  \item[Chyba \emph{(bug)}] \hfill \\
+    chyba nalezená na projektu, kterou bylo potřeba opravit
+\end{description}
+
+\subsubsection*{Priorita}
+\begin{description}
+	\item[Nízká \emph{(0-low)}] \hfill \\
+	  není aktuálně důležitá a nijak nebrání správnému běhu portálu (převážně kosmetické problémy)
+	\item[Střední \emph{(1-medium)}] \hfill \\
+	  může bránit v určitých scénářích, existuje však způsob, jak ji obejít
+	\item[Vysoká  \emph{(2-high)}] \hfill \\
+	  brání scénářům a ovlivňuje vice než jednoho uživatele 
+	\item[Kritická \emph{(3-critical)}] \hfill \\
+	  brání v užívání celého portálu, nebo ovliňuje základní funkcionalitu
+\end{description}
+
+\subsection*{Milníky}
+\begin{description}
+  \item[0.1 | Inicializace] \hfill \\
+    úvodní výzkum týkající se připojení ke vzdálené ploše a dostupných technologií
+  \item[0.2 | Drupal modul] \hfill \\
+    vytvoření modulu pro drupal a jeho základní funkcionalita
+  \item[0.3 | Struktura a práva] \hfill \\
+    struktura stránek, jejich obsahu a práva uživatelů k jejich použití
+  \item[0.4 | Guacamole Drupal] \hfill \\
+    přesun funkcionality z Guacamole do Drupal modulu a jeho propojení s \emph{JAVA} serverovou aplikací
+  \item[0.5 | Test v praxi] \hfill \\
+    změny potřebné k umístění řešení na produkční servery a vytvoření skriptů k automatizaci tohoto procesu
+  \item[1.0 | Základní verze] \hfill \\
+    spuštění základní funkční verze
+  \item[1.1 | Produkční verze] \hfill \\
+    vyřešení všech problémů, komunikace se stranou klienta a přípravy na reálné spuštění v produkčním prostředí
+  \item[1.2 | Údržba] \hfill \\
+    první z verzí, ve kterých se bude dodávat údržba řešení
+\end{description}
