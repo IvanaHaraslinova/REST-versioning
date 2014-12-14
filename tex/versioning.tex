@@ -1,10 +1,45 @@
 \chapter{Versioning}
 \label{chap:versioning}
 
-Versioning determines the creation and management of releases of a product. The product carries the main logic of the application and a version is created when the customization is needed. It means that each client uses the same product and its concrete version which can differ according to the requirements of the customer or due the improvement of funcionality. 
+Versioning determines the creation and management of releases of a product. The product carries the main logic of the application and a version is created when a modification or customization is needed. This means that consumers use the same product but they can use its different version. The version could have been released because of new requirements or due to an improvement of funcionality. 
 
 \section{Versioning of services}
-Thanks to versioning services can be evolved and customized. When a breaking change of service occurs, the new version can be created so that the existing customers, existing users of services are not broken. Release of new version doesn't harm the previous one and all versions can continue to be used.
+\label{sec:verioningservices}
+Thanks to versioning, services can be evolved and customized. When a breaking change of service occurs, the new version can be created so that the existing consumers of services are not affected. Release of a new version doesn't harm the previous one, all versions can coexist and be used at the same time. Each version has its own implementation and is distinguishably addressed.
+
+The breaking change can be for example a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
+
+\bigskip 
+
+The implemenation of services requires the proper definition of following concepts ( 3 = msdn.microsoft.com/en-us/library/bb491124.aspx):
+%what will be versioned and how, the life-cycle of the versions and the access to the version.
+\begin{enumerate}
+  \item Units of versioning
+  \item Service changes, constituting a new version
+  \item Service version life-cycle considerations
+  \item Version deployment/access approaches
+\end{enumerate}
+
+\subsection{Units of versioning}
+It is needed to define what will be versioned, the most frequent are two possibilities:
+
+\begin{description}
+  \item[Versioning of the service]
+  The whole service is versioned with all its methods. This approach is working well with the object-oriented and the component-base development. It's not appropriate with coarse-grained services.(3)
+  \item[Versioning of the service method] 
+  In most cases the change arises just in a method or some methods of the service. It is not neccessary to version the whole service, but there is an option to verison just these operations.
+  The benefits of this approach are less code which is deployed because just a changed methods are redeployed in a new version. All services are immutable, their name and classification remain unchanged when there is a method added. The changes concern just a consumers which use the method, instead of consumers of the service containing changed method. 
+  When the versioning of method is used it is needed to deploy each method with its own endpoint address, the advantage is that the SLA (Service-layer agreement) is provided fot the method so that it is not changed the SLA of the same service.
+  
+\end{description}
+
+\subsection{Version definition}
+
+\subsection{Service version life-cycle}
+\subsection{Version access}
+
+
+
 
 
 

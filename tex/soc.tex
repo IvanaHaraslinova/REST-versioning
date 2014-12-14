@@ -8,11 +8,11 @@
 
 The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.
 
-One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. SOA is based on a decomposition of enterprise IT assets and separation of "stable" IT artifacts (services) from "changeable" artifacts (business processes), orchestrating services into IT solutions (processes). (http://msdn.microsoft.com/en-us/library/bb491124.aspx). The speed of changes in the bussines department is to fast to be applied to development and maintance of the monolitic system, where the funcionality is designed on mesure of customer and can't deal with changes often even without the change of design of whole architecture. SOA offers better support when the business requrements change, the changes are refleted into change of the existing business process, of if it's needed the new process is created using the existing services.
+One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. SOA is based on a decomposition of enterprise IT assets and separation of "stable" IT artifacts (services) from "changeable" artifacts (business processes), orchestrating services into IT solutions (processes). (http://msdn.microsoft.com/en-us/library/bb491124.aspx). The speed of changes in the bussines department is to fast to be applied to development and maintance of the monolitic system, where the funcionality is designed on mesure of customer and can't deal with changes often even without the change of design of whole architecture. SOA offers better support when the business requrements change, the changes are refleted into change of the existing business process, of if it's needed the new process is created using the existing services \ref{sec:services}. There are more approaches how to deal with the changes and one of them is versioning \ref{chap:versioning}.
 
 
 \section{Services}
-%%\label{sec:services}
+\label{sec:services}
 Services are the logic units form which is composed the service-oriented design. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployerd independetly on another one and on the system which use it. It allows the parallel development, one service can be the part of many products of the corporation.
 The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context.[Agile architecture].
 
@@ -26,7 +26,9 @@ The service contract?? for the interface besides on this level, it provide the u
 Abstracted service rapresents the business capability or data. This services can be composed to create a business process, which is the core abstraction that underlies SOA [ZapThing].
 \end{enumerate}
 
+SLA Service-layer agreement
 
+Services granularity
 
 %%\subsubsection*{\textbf{Drupal} \hfill \emph{http://drupal.org}} 
 %%\label{subsec:drupal}
