@@ -24,16 +24,30 @@ The implemenation of services requires the proper definition of following concep
 It is needed to define what will be versioned, the most frequent are two possibilities:
 
 \begin{description}
-  \item[Versioning of the service]
+  \item[Versioning of the service] 
   The whole service is versioned with all its methods. This approach is working well with the object-oriented and the component-base development. It's not appropriate with coarse-grained services.(3)
   \item[Versioning of the service method] 
   In most cases the change arises just in a method or some methods of the service. It is not neccessary to version the whole service, but there is an option to verison just these operations.
   The benefits of this approach are less code which is deployed because just a changed methods are redeployed in a new version. All services are immutable, their name and classification remain unchanged when there is a method added. The changes concern just a consumers which use the method, instead of consumers of the service containing changed method. 
   When the versioning of method is used it is needed to deploy each method with its own endpoint address, the advantage is that the SLA (Service-layer agreement) is provided fot the method so that it is not changed the SLA of the same service.
-  
+  Moreover the addressing schema becomes more complex, the consumer has to specify not just the service but also the method and version of method which wants to use.
+In spite of the more elaborate routing this possibility of versioning offers more flexibility. It adapts the services versioning to versioning practices of commonly used programming languages. 
+Other benefit of this approach is deprecation, an old method which has new vesion can be signed as deprecated. The method can become deprecated when a better alternative is implemented but there are still consumers which use the old one. This method can remain in service until all consumers switch to the newest method.
 \end{description}
 
 \subsection{Version definition}
+It is necessary to analyze the services/methods from the point of view of changes, their impact on the consumer. Analysis of possible changes deals with influence of change on the consumers execution and consequntly defines the changes which will break it. When the change of the service or method is breaking it leads to the creation of new version.
+
+The components of the service are interface and message, both of them could be changed and cause the release of new version.
+
+\subsubsection{Interface changes}
+A change of interface has significant impact on the consumer, it requires many modification of customers implementation or even completely new service. The deprecation of a method is equivalent to its removal and should occur rarely.
+That is the reason why the interface should be never changed, the changes can be done just within the methods in the internal implementation. When the methods are units of versioning they are deployer individually and new methods can be added without any impact on existing consumer. When the method is going to be removed, it is first deprecated, so that is still kept around the service and could be used until all consumers stop to use it.
+It is better to desing the versioning defintion in order to not include the interface changes.
+
+\subsubsection{Message changes}
+
+
 
 \subsection{Service version life-cycle}
 \subsection{Version access}
