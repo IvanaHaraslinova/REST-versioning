@@ -29,10 +29,6 @@ The service contract?? for the interface besides on this level, it provide the u
 Abstracted service rapresents the business capability or data. This services can be composed to create a business process, which is the core abstraction that underlies SOA [ZapThing].
 \end{enumerate}
 
-%SLA Service-layer agreement
-
-%Services granularity  (ERL - Service contract)
-
 \subsection{Service categories and types} %(http://msdn.microsoft.com/en-us/library/bb491121.aspx)
 
 There are two main types of services. The first type is created by infrastructural services, that provide the facilities and aren't a part of application. To the second type belong on the contrary services which re the part of the application and provide main logic.
@@ -52,8 +48,14 @@ There are two main types of services. The first type is created by infrastructur
   \end{enumerate}
 \end{description}
 
+\section{Services granularity}  (ERL - Service contract)
+During the analytical part of the service design it can be defined the service granularity. The service granularity defines functional scope of the serivce. When the granularity is fine, it means the service contains little logic. On the other hand the coarse-grained serices have complex logic within their function.
+Defining the granularity can help to determine the characteristics of the serivce - its performance or size of message. 
 
-\section{Techologies}
+\section{SLA Service-layer agreement}
+\label{sec:sla}
+
+\section{Approaches to implementation}
 
 \subsection{WSDL + SOAP}
 \subsubsection{WSDL}

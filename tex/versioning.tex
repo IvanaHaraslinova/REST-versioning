@@ -42,19 +42,29 @@ The components of the service are interface and message, both of them could be c
 
 \subsubsection{Interface changes}
 A change of interface has significant impact on the consumer, it requires many modification of customers implementation or even completely new service. The deprecation of a method is equivalent to its removal and should occur rarely.
-That is the reason why the interface should be never changed, the changes can be done just within the methods in the internal implementation. When the methods are units of versioning they are deployer individually and new methods can be added without any impact on existing consumer. When the method is going to be removed, it is first deprecated, so that is still kept around the service and could be used until all consumers stop to use it.
-It is better to desing the versioning defintion in order to not include the interface changes.
+When following semantic messages model, the interface is never changed. Advatage of this approach has source in the fact that all changes can be done just within the methods of service. When the methods are units of versioning they are deployed individually and new methods can be added without any impact on existing consumer. When the method is going to be removed, it is first deprecated, so that is still kept around the service and could be used until all consumers stop to use it. The changes are contained in messages and are not shown whitin the interface.
+Than as seen it is better to desing the versioning defintion in order to not include the interface changes.
 
 \subsubsection{Message changes}
+When using the semantic message model the changes of service interface do not change the interfac itelf but are contained in message. The message is created by a schema which describes its content. Chenges in schema can provide different cases of compatibility wit actial implementation and can be divided in three categories:
 
+\begin{enumerate}
+  \item Revisions
+  Revisions are changes without semantic content, for exapmle formatting, comments, etc. They do not affect the functionality of the service and service consumers.
+  
+  \item Minor changes
+  Minor changes are backward-compatible changes of document schema, that means the changes do not impact consumers, the new version continue to support the consumers working with the old version. Examples can be new optional element to existing type, a change of optionality of a local element from required ot optional, adding global type or global element, etc.
+  
+  \item Major changes
+  Major changes are non-backward compatible changes, after a major change the new document schema is no longer compatible with the old one. These chagnes are breaking the usage of the service by the consumer. They are imposed to the new version and consumers need to adjust its program to switch to this version. Breaking changes can be performed by adding or removing an enumeration, removing or renaming a global type or element, changing the optionality of an element from optional to required.
+\end{enumerate} 
 
+\subsubsection{Implementation changes}
+Interface defines the serivce and make the access point from the consumer point of view. The underlying implementation is encapsulated and not visible for outer world. Depite this the implementation cannot be replaced without affectiong the whole service. A provider of service has the contract including SLA \ref{sec:sla} with a service consumer. The contract has to be followed because it is valid document on which the consumer relies. 
+Every change which has to be done in the implementation of the service needs to be validated against the contract. When the implementation which is going to be replaced is the breaking change from the point of view of the consumer the agreement with the change of contract is needed and consequently the new version has to be released.
 
 \subsection{Service version life-cycle}
+Service life-cycle defines the time period in which a version should be maintained. When the time is short, customers have not enough time for their upgrades required in order to swich on new verion.l On the other hand when the period is too long, too many versions of service have to be maintained. The suitable time span is a result of consideration of individual organization with respect to their capability to deal with changes.
+
 \subsection{Version access}
-
-
-
-
-
-
-
+It is needed to define how different consumers of services are accessing its verion of the service. There are several approachs everyone has its pros and cons. The access posibilities are described in separate chapter \ref{chap:versionaccess}.
