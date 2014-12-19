@@ -1,0 +1,38 @@
+\chapter{Versioning access}
+\label{chap:versionaccess}
+
+
+\section{Version identifiers}
+Version is typicaly identified by decimal number. The number is composed from a minor and a major number. Their incerase can be based on the amount of work which have been done between two releases of versions or the compatibility regarding the two versions. This approaches can be combined.
+
+\section{Versioning using URI}
+Version in URI is broadly used solution how to version. The version is displayed in the URI address:
+
+\texttt{http:/api.com/v1/accounts/123}
+
+This approach is easy to understand. The URI change when a new verion is released so that it routes to the right verion. But this appriach brings a lot of disadvatages. There are more option how to handle with consumers -- let the consumer change the URI everytime the version changes, or a consumer obtains fixed URI or the consumer can change its implementation from scratch, which does not involve many work, but it is unaccetable regarding a user.
+Everyone form this option is constraining the flexibility.
+The version should not influence the consumer usability of the system and has to have minimal possible impact on it. If the consumer should change the routing everytime he switch to the new version it is not good and there are possibilities how to access the version better.
+
+Moreover having a look at the REST constraints, this approach is in contrast with the HATEOS. %..
+
+The URI containing version can be used for internal purposes, when the code is debugged and tested, but in the production should not be present.
+
+\section{Versioning based on headers}
+\subsection{Link header}
+The link header can be used to define version of the service which should be used. When the request is sent the consumer obtain a response which is enriched by the link. When consumer uses the old verion of the service he just ignores the link. The user of the new service can follow the added link and reach the newest version of the response.
+
+\texttt{http://example.com/v2/rels/v2-equivalent}
+
+\texttt{GET /accounts/123 HTTP/1.1}
+
+\texttt{HTTP/1.1 200 OK}
+\texttt{link: <http://example.com/v2/orders/super-widget>; rel="alternate http://example.com/v2/rels/v2-equivalent"}
+
+%\subsection{Location}
+
+\subsection{MIME Types}
+
+\texttt{GET /accounts/123 HTTP/1.1}
+
+\texttt{Accept: application/vnd.v2+json}
