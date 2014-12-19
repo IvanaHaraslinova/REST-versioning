@@ -11,36 +11,29 @@ RESTful web services have their best practices and constraints. There are 6 cons
 
 REST architecture has its elements, which do not define the technologies of implementation but are abstraction of the components behaviour. Components have its roles, the way of interaction among them and interpretation.
 
+REST arcitecture is a composition of elements, connectors and components.
+
 The data elements are:
 
 \begin{description}
-  \item resource
-  \item resource identifier
-  \item representation
-  \item representation metadata
-  \item resource metadata
-  \item control data
-  %%http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+  \item [resource] 
+  Resource is an abstraction of information in REST, where any information which can be named can be a resource. A resource is a conceptual mapping to a set of entities, or values \cite{fielding}. The values can be a resource identifier and a representation.
+  \item [resource identifier] 
+  It serves to identify resources which interact with componets. The resource identifier is assigned the name thanks to which it is possible to reference the recource.
+  \item [representation] 
+  Rapresentation is used by REST components to perform changes of the resource. The format of representations data is called media type and have influence on the performance or the hypermedia system  
+  \item [representation metadata] 
+  This metadata describes the data of which the represenation consists of.
+   \item [resource metadata] 
+  Resource metadata stores an information about the resource that is not specific to the supplied representation.
+  \item [control data]
+  Control data decribes the purpose of a message between components
+  %% R http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 \end{description}
 
-The connectors are:
+The connectors provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel 
 
-\begin{description}
-  \item client
-  \item server
-  \item cache
-  \item resolver
-  \item tunnel 
-\end{description}
-
-REST components:
-
-\begin{description}
-  \item origin server
-  \item gateway
-  \item proxy
-  \item user agent
-\end{description}
+REST components are an abstraction of application unit. The components are origin server, gateway, proxy, user agent.
 
 
 \section{REST rapresentation}
@@ -61,7 +54,7 @@ easier to understand for both, the server and the client.
 Interface is resource-based - requests in \emph {URI} (Uniform Resource Idetifier) contain the resource identifiers which identifies the concrete resource. To the client is then sent the representation which is conceptually separated from the resource. The representation is commonly in HTML, XML or JSON format and represents appropriate database record.
 Resources are manipulated exclusively throught the rapresentations. The representation with any metadata attached, keeps enough information for the client and allow him to modify the resource on the server.
 The sentmessage which represents the request sent by client or the response form the server is self-decriptive. That means there is enough information to know hov to process the message and the response explicitely defines the cashability.
-The representation is sent using \emph {HTTP specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
+The representation is sent using \emph{HTTP specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
 
 
   \item Stateless
@@ -72,6 +65,12 @@ The statelessness allows greater scalability, because server doesn't have to cam
 
 
 Each message is self-descriptive, has enough context to be processable by the server. Messages has no state. If the state is needed, the representation is what is holding it.?????
+
+(Session state is therefore kept entirely on the client.
+
+Visibility is improved because a monitoring system does not have to look beyond a single request datum in order to determine the full nature of the request. Reliability is improved because it eases the task of recovering from partial failures [133]. Scalability is improved because not having to store state between requests allows the server component to quickly free resources, and further simplifies implementation because the server doesn't have to manage resource usage across requests.
+
+The disadvantage is that it may decrease network performance by increasing the repetitive data. The data cannot be left on the server in a shared context. Placing the application state on the client-side reduces the server's control over consistent application behavior, application is dependent on the clients implementation) %http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 
 \item Client-server
 

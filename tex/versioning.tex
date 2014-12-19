@@ -3,11 +3,13 @@
 
 Versioning determines the creation and management of releases of a product. The product carries the main logic of the application and a version is created when a modification or customization is needed. This means that consumers use the same product but they can use its different version. The version could have been released because of new requirements or due to an improvement of funcionality. 
 
+Any new verion of the product mustn't influence the execution of consumers code. When the product is customized, the change has to be compatible with every consumer. In case the change is incompatible, it is needed to release new version. Before a consumer switches the new version an agreement between provider and consumer has to be established. The consumer has to do required changes in teh usage of the product deriving from new agreement.
+
+The breaking change can be for example a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
+
 \section{Versioning of services}
 \label{sec:verioningservices}
 Thanks to versioning, services can be evolved and customized. When a breaking change of service occurs, the new version can be created so that the existing consumers of services are not affected. Release of a new version doesn't harm the previous one, all versions can coexist and be used at the same time. Each version has its own implementation and is distinguishably addressed.
-
-The breaking change can be for example a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
 
 \bigskip 
 
@@ -49,13 +51,13 @@ Than as seen it is better to desing the versioning defintion in order to not inc
 When using the semantic message model the changes of service interface do not change the interfac itelf but are contained in message. The message is created by a schema which describes its content. Chenges in schema can provide different cases of compatibility wit actial implementation and can be divided in three categories:
 
 \begin{enumerate}
-  \item Revisions
+  \item[Revisions]
   Revisions are changes without semantic content, for exapmle formatting, comments, etc. They do not affect the functionality of the service and service consumers.
   
-  \item Minor changes
+  \item[Minor changes]
   Minor changes are backward-compatible changes of document schema, that means the changes do not impact consumers, the new version continue to support the consumers working with the old version. Examples can be new optional element to existing type, a change of optionality of a local element from required ot optional, adding global type or global element, etc.
   
-  \item Major changes
+  \item[Major changes]
   Major changes are non-backward compatible changes, after a major change the new document schema is no longer compatible with the old one. These chagnes are breaking the usage of the service by the consumer. They are imposed to the new version and consumers need to adjust its program to switch to this version. Breaking changes can be performed by adding or removing an enumeration, removing or renaming a global type or element, changing the optionality of an element from optional to required.
 \end{enumerate} 
 
@@ -66,5 +68,10 @@ Every change which has to be done in the implementation of the service needs to 
 \subsection{Service version life-cycle}
 Service life-cycle defines the time period in which a version should be maintained. When the time is short, customers have not enough time for their upgrades required in order to swich on new verion.l On the other hand when the period is too long, too many versions of service have to be maintained. The suitable time span is a result of consideration of individual organization with respect to their capability to deal with changes.
 
+Product verions should be always compatible with consumers usage. When a new version of the service method is released, it is needed to have the old one present in the implementation if any of the consumers operate with it. When the service method is going to be replaced by new one, it has to be hold so that do not impact any consumer. It can be signed as deprecated, which do not influence its usage from the point of view of the consumer, but it means that provider waits that all consumers switch to the new implemenation. When the deprecated method stops to be used, it can be safely removed. 
+
+This lifecycle is posible only when the service method versioning approach is implemented, in case of whole service versioning, when the service is given into state deprecated, it is equvalent to its remove, it is needed the new agreement between the provider and consumer so that consumer have to implement changes to use the new service or just  keep useng the older version. The whole serivce versioning provides less flexibility.
+
 \subsection{Version access}
 It is needed to define how different consumers of services are accessing its verion of the service. There are several approachs everyone has its pros and cons. The access posibilities are described in separate chapter \ref{chap:versionaccess}.
+
