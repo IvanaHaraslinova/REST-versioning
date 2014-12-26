@@ -62,7 +62,7 @@ When using the semantic message model the changes of service interface do not ch
 \end{enumerate} 
 
 \subsubsection{Implementation changes}
-Interface defines the serivce and make the access point from the consumer point of view. The underlying implementation is encapsulated and not visible for outer world. Depite this the implementation cannot be replaced without affectiong the whole service. A provider of service has the contract including SLA \ref{sec:sla} with a service consumer. The contract has to be followed because it is valid document on which the consumer relies. 
+Interface defines the serivce and make the access point from the consumer point of view. The underlying implementation is encapsulated and not visible for outer world. Depite this the implementation cannot be replaced without affectiong the whole service. A provider of service has the contract including SLA \gls{sla} with a service consumer. The contract has to be followed because it is valid document on which the consumer relies. 
 Every change which has to be done in the implementation of the service needs to be validated against the contract. When the implementation which is going to be replaced is the breaking change from the point of view of the consumer the agreement with the change of contract is needed and consequently the new version has to be released.
 
 \subsection{Service version life-cycle}
@@ -74,4 +74,3 @@ This lifecycle is posible only when the service method versioning approach is im
 
 \subsection{Version access}
 It is needed to define how different consumers of services are accessing its verion of the service. There are several approachs everyone has its pros and cons. The access posibilities are described in separate chapter \ref{chap:versionaccess}.
-

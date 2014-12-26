@@ -1,13 +1,13 @@
 \chapter{Representative State Transfer (REST)}
 \label{chap:rest}
 
-%% (sekce \ref{subsec:features}) 
-
 \section{REST architecture}
 \label{sec:rest-architecture}
 
-The REST is an architectural style. "a set of constraints on the overall arichitectural approach"(agile argitecture). The goal of REST is to create a distributed hypermedia application It is resource-based, which means that it handles with resources instead of making actions, resources are named by nouns, and the actions are provided by HTTP requests. Rest architecture is client-server.
-RESTful web services have their best practices and constraints. There are 6 constraints characterizing the REST. 
+The REST is "a set of constraints on the overall architectural approach" \ref{agile-architecture}. The goal of REST is to create a distributed hypermedia application. It is \gls{resource-based-model}, it handles with resources, the resources are named by nouns and actions are provided by HTTP requests. 
+
+REST architecture is client-server. The server holds the implementation of logic of services and encapsulates it under the interfaces. The interfaces are entry points for client and through them he can obtain or modify the data.
+REST has its best practices and constraints. The servicies built according to this definition can be called \emph{RESTful}. There are 6 constraints characterizing the REST which will be decribed later in this chapter \ref{sec:constraints} .
 
 REST architecture has its elements, which do not define the technologies of implementation but are abstraction of the components behaviour. Components have its roles, the way of interaction among them and interpretation.
 
@@ -40,6 +40,7 @@ REST components are an abstraction of application unit. The components are origi
 Every resource has its representation, it describes how resources get manipulated in RESTful  API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many more other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
 
 \section{REST constraints}
+\label{sec:constraints}
 
 Six constraints that are applied to the architecture to create RESTful services. Respecting this rules leads to desiderable properties of the system, such as performance, scalability, simplicity, modifiability, visibility, portability and reliability. 
 %%(citacia http://www.restapitutorial.com/lessons/whatisrest.html#)
