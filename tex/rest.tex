@@ -7,27 +7,25 @@
 The REST is "a set of constraints on the overall architectural approach" \ref{agile-architecture}. The goal of REST is to create a distributed hypermedia application. It is \gls{resource-based-model}, it handles with resources, the resources are named by nouns and actions are provided by HTTP requests. 
 
 REST architecture is client-server. The server holds the implementation of logic of services and encapsulates it under the interfaces. The interfaces are entry points for client and through them he can obtain or modify the data.
-REST has its best practices and constraints. The servicies built according to this definition can be called \emph{RESTful}. There are 6 constraints characterizing the REST which will be decribed later in this chapter \ref{sec:constraints} .
+REST has its best practices and constraints. The servicies built according to this definition can be called \emph{RESTful}. There are 6 constraints characterizing the REST which will be decribed later in this chapter \ref{sec:constraints}.
 
-REST architecture has its elements, which do not define the technologies of implementation but are abstraction of the components behaviour. Components have its roles, the way of interaction among them and interpretation.
+REST arcitecture is a composition of elements, connectors and components. None of them defines the technologies but they are the abstractions. The elements abstract a bahviour of components. The components have its roles, the way of interaction among them and interpretation.
 
-REST arcitecture is a composition of elements, connectors and components.
-
-The data elements are:
+The data elements are \ref{fielding}: /TODO examples
 
 \begin{description}
-  \item [resource] 
+  \item [resource] \hfill \\ 
   Resource is an abstraction of information in REST, where any information which can be named can be a resource. A resource is a conceptual mapping to a set of entities, or values \cite{fielding}. The values can be a resource identifier and a representation.
-  \item [resource identifier] 
-  It serves to identify resources which interact with componets. The resource identifier is assigned the name thanks to which it is possible to reference the recource.
-  \item [representation] 
-  Rapresentation is used by REST components to perform changes of the resource. The format of representations data is called media type and have influence on the performance or the hypermedia system  
-  \item [representation metadata] 
+  \item [resource identifier] \hfill \\
+  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource.
+  \item [representation] \hfill \\
+  Rapresentation is used by REST components to perform changes to the resource. Format of representations data is called media type and have influence on the performance of the hypermedia. Media types can be proprietary or standardized, from standardized types \gls{json}, the preformance is faster whne using this media type. /TODO influence of json to performance
+  \item [representation metadata] \hfill \\
   This metadata describes the data of which the represenation consists of.
-   \item [resource metadata] 
+   \item [resource metadata] \hfill \\
   Resource metadata stores an information about the resource that is not specific to the supplied representation.
-  \item [control data]
-  Control data decribes the purpose of a message between components
+  \item [control data] \hfill \\
+  Control data decribes the purpose of a message between components. /TODO what does it mean
   %% R http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 \end{description}
 
@@ -36,8 +34,8 @@ The connectors provides the access point for the values of the resource. In conn
 REST components are an abstraction of application unit. The components are origin server, gateway, proxy, user agent.
 
 
-\section{REST rapresentation}
-Every resource has its representation, it describes how resources get manipulated in RESTful  API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many more other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
+\section{REST resource and rapresentation}
+Every resource has its representation, it describes how resources get manipulated in RESTful API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many more other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
 
 \section{REST constraints}
 \label{sec:constraints}
@@ -77,9 +75,9 @@ The disadvantage is that it may decrease network performance by increasing the r
 
 RESTful architecture is client-server architecture. There are two disconnected concerns, separation of this them is properly defined and it specifies what is user interface and services. Client can’t have direct access to the database, assets or resources, which improves the portability of client code. Servers are not included in uder interface, which improves the simplicity and scalability of server-side code. Uniform interface links the client and server together. The two concerns can be developed indipendently as long as the interface is not altered. 
 
-\item Cashable
+\item Casheable
 
-Server responses (representations) are cashable, everything that comes back to server or from REST service could be cashable. Responses are able to to define themselfs as cashable implicitly (it’s not noted in general client), explicitly (server specifies) or negotiated (to figure out how long can be cashed), to avoid the inappropriate reuse of data contained in response in further requests. Cashing partially limits the clinet-server interacton but improves the scalability and performance.
+Server responses (representations) are casheable, everything that comes back to server or from REST service could be casheable. Responses are able to to define themselfs as cashable implicitly (it’s not noted in general client), explicitly (server specifies) or negotiated (to figure out how long can be cashed), to avoid the inappropriate reuse of data contained in response in further requests. Cashing partially limits the clinet-server interacton but improves the scalability and performance.
 
 \item Layered system
 
@@ -88,10 +86,14 @@ Linked to cashability and client-server. Client is not able to see if he is comm
 \item Code on demand (optional)
 
 The logic can be transferred to the client-side, this way the server can temporarily extends or customize the functionality of the client. This can be performed for example by the components like service-side scripts.
-This constraint is unique, it is the only one which can be violated and the services can be still reffered as RESTfull.
+This constraint is unique, it is the only one which can be violated and the services can be still reffered as RESTful.
 
 \end{enumerate}
 \end{description}
+
+\section{Application of REST in a corporation}
+The constraints of RESTful services are mandaroty. When a company wants to develop a system with RESTful services it has to applied at least the first five of them. But it can occure when not all the constraints are profitable for the application which is required to create. In this case when all obliged constrainst aren't applied the services cannot be marked as RESTful. But this not affect the services themselfs.
+%!TODO 
 %%\footnote{Technologie jsou popsány v sekci~\ref{sec:technologies}.} 
 
 

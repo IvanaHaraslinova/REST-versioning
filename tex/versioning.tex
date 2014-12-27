@@ -1,15 +1,30 @@
 \chapter{Versioning}
 \label{chap:versioning}
 
-Versioning determines the creation and management of releases of a product. The product carries the main logic of the application and a version is created when a modification or customization is needed. This means that consumers use the same product but they can use its different version. The version could have been released because of new requirements or due to an improvement of funcionality. 
+Versioning determines creation of releases of a product and its management. The product is what provider offers to consumer and its new version is created when a modification is needed. Consumers can use the same product but anyone could use its different version. The version could have been released because of new requirements or due to an improvement of funcionality. 
 
-Any new verion of the product mustn't influence the execution of consumers code. When the product is customized, the change has to be compatible with every consumer. In case the change is incompatible, it is needed to release new version. Before a consumer switches the new version an agreement between provider and consumer has to be established. The consumer has to do required changes in teh usage of the product deriving from new agreement.
+Any of new versions of the product mustn't influence the execution of consumers code. When the product is customized, a change has to be compatible with all consumers. In case the change is incompatible, it is needed to release a new version. Before a consumer switches the new version an agreement between provider and consumer has to be established. The consumer has to do required changes within usage of the product deriving from the new agreement.
 
-The breaking change can be for example a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
+A breaking change is type of change which leads to necessity of modification on consumer side. An example can be a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
+
+\section{Backward and nonbackward compatibility}
+
 
 \section{Versioning of services}
 \label{sec:verioningservices}
-Thanks to versioning, services can be evolved and customized. When a breaking change of service occurs, the new version can be created so that the existing consumers of services are not affected. Release of a new version doesn't harm the previous one, all versions can coexist and be used at the same time. Each version has its own implementation and is distinguishably addressed.
+Thanks to versioning, services can be evolved and customized. When a breaking change of service occurs, the new version can be created so that the existing consumers of services are not affected. Release of a new version doesn't harm the previous one, all versions can coexist and be used at the same time. 
+
+As there are three levels of interpretation \emph{service} a change and followed versioning can occur within each of this levels - business abstraction, service interface, service implementation \ref{subsec:levels-of-serivce}.
+
+\subsection{Versioning of business service}
+Sometimes it is needed to change the businsess service. It means the business which is abstracted have to be changed. For exmple because of new reqirements due to legislative a business service needs mofifications, if this kind of change affects behaviour, semantic or functionality modification of existing service it is easier to create a new service rather then a version. 
+
+\subsection{Versioning of service interface}
+
+\subsection{Versioning of service implementation}
+Changes in implementation are mostly a backward compatible and a service interface is not affected. The main parto fo this changes are bug fixes.
+
+%Each version has its own implementation and is distinguishably addressed.
 
 \bigskip 
 
@@ -27,11 +42,11 @@ It is needed to define what will be versioned, the most frequent are two possibi
 
 \begin{description}
   \item[Versioning of the service] 
-  The whole service is versioned with all its methods. This approach is working well with the object-oriented and the component-base development. It's not appropriate with coarse-grained services.(3)
+  The whole service is versioned with all its methods. This approach is working well with the object-oriented and the component-base development. It's not appropriate with coarse-grained services \ref{sec:granularity}.(3)
   \item[Versioning of the service method] 
   In most cases the change arises just in a method or some methods of the service. It is not neccessary to version the whole service, but there is an option to verison just these operations.
   The benefits of this approach are less code which is deployed because just a changed methods are redeployed in a new version. All services are immutable, their name and classification remain unchanged when there is a method added. The changes concern just a consumers which use the method, instead of consumers of the service containing changed method. 
-  When the versioning of method is used it is needed to deploy each method with its own endpoint address, the advantage is that the SLA (Service-layer agreement) is provided fot the method so that it is not changed the SLA of the same service.
+  When the versioning of method is used it is needed to deploy each method with its own endpoint address, the advantage is that the \gls{sla} is provided fot the method so that it is not changed the SLA of the same service.
   Moreover the addressing schema becomes more complex, the consumer has to specify not just the service but also the method and version of method which wants to use.
 In spite of the more elaborate routing this possibility of versioning offers more flexibility. It adapts the services versioning to versioning practices of commonly used programming languages. 
 Other benefit of this approach is deprecation, an old method which has new vesion can be signed as deprecated. The method can become deprecated when a better alternative is implemented but there are still consumers which use the old one. This method can remain in service until all consumers switch to the newest method.
@@ -74,3 +89,6 @@ This lifecycle is posible only when the service method versioning approach is im
 
 \subsection{Version access}
 It is needed to define how different consumers of services are accessing its verion of the service. There are several approachs everyone has its pros and cons. The access posibilities are described in separate chapter \ref{chap:versionaccess}.
+
+\section{Versioning service implementation}
+Besides versioning the service interface, it is possible to consider an implementation. The underlying implementation can changed without affectiong the interface itself. 
