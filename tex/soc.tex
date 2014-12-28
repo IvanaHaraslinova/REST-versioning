@@ -6,16 +6,35 @@
 \section{Service-oriented architecture}
 \emph{Service-oriented architecture (SOA)} is a set of best practices for an organization leading to agile architectural model of the system to meet business needs. Result of applied practices is an architecture which corresponds to dynamic market changes. The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.
 
-One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. SOA is based on a decomposition of enterprise IT assets and separation of "stable" IT artifacts (services) from "changeable" artifacts (business processes), orchestrating services into IT solutions (processes) \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx)
-The speed of changes in the bussines department is too fast to be passed directly into development and maintance of the monolitic systems. Funcionality of this systems is designed on measure of customer and can't deal easily with changes, often it is needed to interfere in design of whole architecture. SOA offers better support when the business requirements change, the changes are refleted into modification of an existing business process, or if it's needed a new process is created using existing services \ref{sec:services}. There are more approaches how to deal with the changes and one of them is versioning \ref{chap:versioning}.
+The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the expamles of horizontal layers is designed in picture \ref{fig:soa-architecture}.
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=8cm]{img/soa-architecture.pdf}}
+\caption{Example of service-oriented architecture model}
+\label{fig:soa-architecture}
+\end{figure}  
+
+One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. "SOA is based on a decomposition of enterprise IT assets and separation of "stable" IT artifacts (services) from "changeable" artifacts (business processes), orchestrating services into IT solutions (processes)." \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
+Above mentioned services are essential part of SOA. Relationship between them and a business process constituted by services is visualized in the picture \ref{fig:business-process-services}.
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=12cm]{img/business-process-services.pdf}}
+\caption{Business process is a composition of services}
+\label{fig:business-process-services}
+\end{figure} 
+
+The speed of changes in the bussines department is too fast to be passed directly into development and maintance of the monolitic systems. Funcionality of these systems is designed on measure of customer and often can't deal easily with changes, it can arrive in interference in design of whole architecture. SOA offers better flexibility when business requirements change, changes are refleted into modification of an existing business process by changing involved services, or if it's needed a new process is created using existing services or a new service can be created. There are more approaches how to deal with the changes and one of them is versioning which is described in chapter \ref{chap:versioning} and \ref{chap:versionaccess} in detail.
+
+
+
 
 
 \section{Services}
 \label{sec:services}
-Services are the logic units form which is composed the \gls{service-oriented-design}. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployerd independetly on another one and on the system which use it. It allows the parallel development, one service can be the part of many products of the corporation.
-The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context.[Agile architecture].
+Services are the logic units form which is composed the \gls{service-oriented-design}. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployerd independetly on another one and on the system which use it. It allows a parallel development, one service can be a part of many products of the corporation.
+The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context \cite{agile-architecture}.
 
-\subsection{Levels of service} 
+\subsection{Levels of a service} 
 \label{subsec:levels-of-serivce}
 
 There are three levels of how we can interpret the expression \emph{'Service'} in SOA context \cite{agile-architecture}:
@@ -28,11 +47,11 @@ This level is an entry point to the sevice implmentation, it provides underlying
 Abstracted service or business service represents a business capability or data. This services can be composed to describe a business process. This is a core abstraction of SOA.
 \end{enumerate}
 
-There is a many-to-many relationship between these three entities. Business service can represents muliple interfaces and in the same time one interface can be supported by multiple implementation.
+There is a many-to-many relationship between these three levels. Business service can represents muliple interfaces and in the same time one interface can be supported by multiple implementation.
 
 /TODO image
 
-\subsection{Service categories and types} %(http://msdn.microsoft.com/en-us/library/bb491121.aspx)
+\subsection{Service categories and types} \cite{website:ontology-taxonomy}
 
 There are two main types of services. The first type is composed by infrastructural services which provide the facilities and aren't a part of application. To the second type belongs services which are the part of the application and provide main logic.
 
@@ -58,9 +77,10 @@ There are two main types of services. The first type is composed by infrastructu
 \section{Services granularity}
 \label{sec:granularity}
 During the analytical part of the service design it can be defined the service granularity. The service granularity describes functional scope of the serivce. When the granularity is fine, it means the service contains little logic. On the other hand there are coarse-grained serices which have complex logic but at the expense of flexibility.
-Defining the granularity can help to determine the characteristics of the serivce - its performance or size of message. \cite{soa-contract}S
+Defining the granularity can help to determine the characteristics of the serivce - its performance or size of message. \cite{soa-contract}
 
-\section{Approaches to implementation}
+\section{Approaches of implementation of web services}
+Web services are one group of services, these are intended to work on a network such as Internet.
 
 \subsection{Evolution of approches}
 \subsubsection{WSDL RPC SOAP} 
