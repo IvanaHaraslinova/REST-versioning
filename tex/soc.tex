@@ -6,7 +6,7 @@
 \section{Service-oriented architecture}
 \emph{Service-oriented architecture (SOA)} is a set of best practices for an organization leading to agile architectural model of the system to meet business needs. Result of applied practices is an architecture which corresponds to dynamic market changes. The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.
 
-The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the expamles of horizontal layers is designed in picture \ref{fig:soa-architecture}.
+The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the expamles of horizontal layers is designed in picture \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (excluding potential harms). In this example provider develops an application containing services which has access to a database using adapter. The \gls{adapter} serves to transform data from database to date useful for services and vice-versa. Services are entry point for consumer application, thanks to them he has an access to the data without direct access to database.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/soa-architecture.pdf}}
@@ -24,10 +24,6 @@ Above mentioned services are essential part of SOA. Relationship between them an
 \end{figure} 
 
 The speed of changes in the bussines department is too fast to be passed directly into development and maintance of the monolitic systems. Funcionality of these systems is designed on measure of customer and often can't deal easily with changes, it can arrive in interference in design of whole architecture. SOA offers better flexibility when business requirements change, changes are refleted into modification of an existing business process by changing involved services, or if it's needed a new process is created using existing services or a new service can be created. There are more approaches how to deal with the changes and one of them is versioning which is described in chapter \ref{chap:versioning} and \ref{chap:versionaccess} in detail.
-
-
-
-
 
 \section{Services}
 \label{sec:services}
