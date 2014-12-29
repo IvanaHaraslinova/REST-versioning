@@ -13,19 +13,33 @@ REST has its best practices and constraints. The servicies built according to th
 
 REST arcitecture is a composition of elements, connectors and components. None of them defines a technology but they are abstractions. The elements abstract a bahviour of components. The components have its roles, the way of interaction among them and interpretation.
 
-The data \emph{elements} are \cite{fielding}: %TODO examples
+The \emph{data elements} are: %TODO examples
 
 \begin{description}
   \item [resource] \hfill \\ 
-  Resource is an abstraction of information in REST, where any information which can be named can be a resource. "A resource is a conceptual mapping to a set of entities, or values" \cite{fielding}. The values can be a resource identifier and a representation.
+  Resource is an abstraction of information in REST, where any information which can be named can be a resource. "A resource is a conceptual mapping to a set of entities.." \cite{fielding} or set of values. The values can be a resource identifier and a representation.
+  Resource can be static, for expamle \emph{an image}, or dynamic, \emph{the time} which dynamicaly changes.
   \item [resource identifier] \hfill \\
-  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource. Resource has its \gls{uri}. It identifies the path where the resource can be find. A request form client is routed to the address and specific method which has to be performed.
+  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource. The identifiers is \gls{uri}, it marks a path where the resource is situated. A request form client is routed to the specific address and method which will be performed.
+  The resource identifier for \emph{the time} then looks like: \hfill \\
+  \texttt{http://www.api.com/time}
   \item [representation] \hfill \\
   Rapresentation is used by REST components to perform changes to the resource. Format of representations data is called media type and have influence on the performance of the hypermedia. Media types can be proprietary or standardized, from standardized types there are for comparison \gls{xml} and \gls{json}. JSON format is less verbose then XML and in consequence in sake of data transmission it would be performed faster than a XML representation fomat.
+  Example of representation:
+  \begin{description}
+    \item[In plain text] \texttt{Mon Nov 29 2014 18:03:19 GMT+0100}
+    \item[In xml format] \texttt{<time>2014-11-29T18:03:19+01:00</time>}
+  \end{description}
+  
+  
   \item [representation metadata] \hfill \\
   This metadata describes the data of which the represenation consists of.
+  Examples: \hfill \\
+  \texttt{Content-Type: text/plain} \hfill \\
+  \texttt{Content-Type: text/xml}
    \item [resource metadata] \hfill \\
   Resource metadata stores an information about the resource that is not specific to the supplied representation.
+  Example: \texttt{Allow: GET}
   \item [control data] \hfill \\
   Control data decribes the purpose of a message between components. %TODO what does it mean
   %% R http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
@@ -55,6 +69,7 @@ Interface is resource-based - requests in \gls{uri} contain the resource identif
 Resources are manipulated exclusively throught the rapresentations. The representation with any metadata attached, keeps enough information for the client and allow him to modify the resource on the server.
 The sentmessage which represents the request sent by client or the response form the server is self-decriptive. That means there is enough information to know hov to process the message and the response explicitely defines the cashability.
 The representation is sent using \emph{\gls{http} specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
+The REST is not restricted only on the four HTTP methods, a service can implement its own methods, for example \texttt{GetByName}. The repsponse would be representation of resource corresponding to the name parameter contained in the request.
 
   \item Stateless
   
@@ -63,7 +78,7 @@ The statelessness allows greater scalability, because server doesn't have to cam
 
 \item Client-server
 
-RESTful architecture is client-server architecture. There are two disconnected concerns, separation of this them is properly defined and it specifies what is user interface and services. Client can’t have direct access to the database, assets or resources, which improves the portability of client code. Servers are not included in uder interface, which improves the simplicity and scalability of server-side code. Uniform interface links the client and server together. The two concerns can be developed indipendently as long as the interface is not altered. 
+RESTful architecture is client-server architecture. There are two disconnected concerns, it is properly defined what is user interface and services. Client can’t have direct access to the database, assets or resources, which improves the portability of client code. Servers are not included in uder interface, which improves the simplicity and scalability of server-side code. Uniform interface links the client and server together. The two concerns can be developed indipendently as long as the interface is not altered. 
 
 \item Casheable
 
@@ -93,11 +108,14 @@ This constraint is unique, it is the only one which can be violated and the serv
 \bigskip
 \section{Application of REST}
 
-Having the SOA and knowing the constraints of the REST the RESTful services can be designed. When a company wants to develop a system with RESTful services it has to apply at least the first five of them. But it can occure that not all the constraints are profitable for an application. In this case the architecture can forget some of them but the services cannot be further marked as RESTful. The notation doesn't affect services themselfs, the result can be still the best design for current application.
+Having the SOA and knowing the constraints of the REST services can be designed. When a company wants to develop a system with RESTful services it has to apply at least the first five of constraints. But it can occure that not all the constraints are profitable for an application. In this case the architecture can forget some of them but the services cannot be further marked as RESTful. This notation doesn't affect services themselfs, the result can be still the best design for current application.
 
-To convert all the theory into the practice, the sipmle web service which has all of REST elements and keeps the constraints will be created. In designing the service there will be consider the notation of \gls{webapi} \gls{framework}. 
+\subsection{RESTful service example}
+There is a cropration with SOA and its services are designed according to REST constraints. One of the services is representing bussiness abstraction of \emph{customers} of the company. Customers can be viewed, created, modified or deleted. For this goal the HTTP requests are used (GET, POST, PUT, DELETE). 
 
-The expample service is representing bussiness abstraction of a \emph{customer} of the company using the application to offer its products. Customer can be viewed, created, modified or deleted. For this goal the HTTP requests are used (GET, POST, PUT, DELETE). 
+In designing the service there will be considered the notation of \gls{webapi} \gls{framework}. 
+
+ 
 
 Resource identifier is a URI address. In ASP.NET Web API is composed from \emph{controller}, which is a class handling the HTTP request and a method of the controller which is called \emph{action}. In case of customer service example the controller is \emph{customer}, the action can be \emph{GET} and to identify a specific customer the parameter \emph{name} as to be a part of URI.
 
@@ -115,9 +133,23 @@ Resource identifier is a URI address. In ASP.NET Web API is composed from \emph{
 }
 
 \begin{lstlisting}
-GET customers/getByName/name="Peter"
+GET customers/getByName/{name} 
 \end{lstlisting}
 
+When the client wants to get the customer whose name is \emph{Peter} then the request looks like:
+
+\begin{lstlisting}
+GET customers/getByName/Peter 
+\end{lstlisting}
+
+Thanks to URI the request is roated to specific resource and returns a response. This response is a representation containing customer with the requested name. Represenation has its media type which are stated in the metadata in this case it is for example JSON format:
+
+\begin{lstlisting}
+{ id: 2,
+name: "Peter",
+surrname: "Sun",
+e-mail: "peter.sun@service.com" }
+\end{lstlisting}
 
 %!TODO 
 %%\footnote{Technologie jsou popsány v sekci~\ref{sec:technologies}.} 
