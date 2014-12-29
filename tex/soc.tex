@@ -28,7 +28,7 @@ The speed of changes in the bussines department is too fast to be passed directl
 \section{Services}
 \label{sec:services}
 Services are the logic units form which is composed the \gls{service-oriented-design}. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployerd independetly on another one and on the system which use it. It allows a parallel development, one service can be a part of many products of the corporation.
-The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context \cite{agile-architecture}.
+"The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context." \cite{agile-architecture}
 
 \subsection{Levels of a service} 
 \label{subsec:levels-of-serivce}
@@ -47,12 +47,14 @@ There is a many-to-many relationship between these three levels. Business servic
 
 /TODO image
 
-\subsection{Service categories and types} \cite{website:ontology-taxonomy}
+\subsection{Service categories and types} 
 
 There are two main types of services. The first type is composed by infrastructural services which provide the facilities and aren't a part of application. To the second type belongs services which are the part of the application and provide main logic.
 
-/TODO decribe services
+\bigskip
+%TODO decribe services
 
+Service categories \cite{website:ontology-taxonomy} :
 \begin{description}
   \item[Bus services] can be further divided into 
   \begin{enumerate}
@@ -68,22 +70,22 @@ There are two main types of services. The first type is composed by infrastructu
   \end{enumerate}
 \end{description}
 
-/TODO image
+%TODO image
 
 \section{Services granularity}
 \label{sec:granularity}
 During the analytical part of the service design it can be defined the service granularity. The service granularity describes functional scope of the serivce. When the granularity is fine, it means the service contains little logic. On the other hand there are coarse-grained serices which have complex logic but at the expense of flexibility.
-Defining the granularity can help to determine the characteristics of the serivce - its performance or size of message. \cite{soa-contract}
+Defining the granularity can help to determine characteristics of a serivce - its performance or size of message. \cite{soa-contract} When service 
 
 \section{Approaches of implementation of web services}
 Web services are one group of services, these are intended to work on a network such as Internet.
 
 \subsection{Evolution of approches}
 \subsubsection{WSDL RPC SOAP} 
-/TODO form agile arcitecture revolution
+%TODO form agile arcitecture revolution
  
 \subsection{REST}
-/TODO WADL
+%TODO WADL
 
 Representational State Transfer, REST is an architectural style for building ditributed hypermedia applications.
 Thanks to REST disappeared many issues related to web services, but it comes with some new. This thesis deals with REST style and RESTfull services. \ref{chap:rest}

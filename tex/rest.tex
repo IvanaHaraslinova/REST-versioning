@@ -1,41 +1,41 @@
+
+
 \chapter{Representative State Transfer (REST)}
 \label{chap:rest}
 
 \section{REST architecture}
 \label{sec:rest-architecture}
 
-The REST is "a set of constraints on the overall architectural approach" \ref{agile-architecture}. The goal of REST is to create a distributed hypermedia application. It is \gls{resource-based-model}, it handles with resources, the resources are named by nouns and actions are provided by HTTP requests. 
+The REST is "a set of constraints on the overall architectural approach" \cite{agile-architecture}. The goal of REST is to create a distributed hypermedia application. It is \gls{resource-based-model}, it handles with resources, the resources are named by nouns and actions are provided by HTTP requests. 
 
 REST architecture is client-server. The server holds the implementation of logic of services and encapsulates it under the interfaces. The interfaces are entry points for client and through them he can obtain or modify the data.
-REST has its best practices and constraints. The servicies built according to this definition can be called \emph{RESTful}. There are 6 constraints characterizing the REST which will be decribed later in this chapter \ref{sec:constraints}.
+REST has its best practices and constraints. The servicies built according to this definition can be called \emph{RESTful}. There are 6 constraints characterizing the REST which will be decribed further in this chapter \ref{sec:constraints}.
 
-REST arcitecture is a composition of elements, connectors and components. None of them defines the technologies but they are the abstractions. The elements abstract a bahviour of components. The components have its roles, the way of interaction among them and interpretation.
+REST arcitecture is a composition of elements, connectors and components. None of them defines a technology but they are abstractions. The elements abstract a bahviour of components. The components have its roles, the way of interaction among them and interpretation.
 
-The data elements are \ref{fielding}: /TODO examples
+The data \emph{elements} are \cite{fielding}: %TODO examples
 
 \begin{description}
   \item [resource] \hfill \\ 
-  Resource is an abstraction of information in REST, where any information which can be named can be a resource. A resource is a conceptual mapping to a set of entities, or values \cite{fielding}. The values can be a resource identifier and a representation.
+  Resource is an abstraction of information in REST, where any information which can be named can be a resource. "A resource is a conceptual mapping to a set of entities, or values" \cite{fielding}. The values can be a resource identifier and a representation.
   \item [resource identifier] \hfill \\
-  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource.
+  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource. Resource has its \gls{uri}. It identifies the path where the resource can be find. A request form client is routed to the address and specific method which has to be performed.
   \item [representation] \hfill \\
-  Rapresentation is used by REST components to perform changes to the resource. Format of representations data is called media type and have influence on the performance of the hypermedia. Media types can be proprietary or standardized, from standardized types \gls{json}, the preformance is faster whne using this media type. /TODO influence of json to performance
+  Rapresentation is used by REST components to perform changes to the resource. Format of representations data is called media type and have influence on the performance of the hypermedia. Media types can be proprietary or standardized, from standardized types there are for comparison \gls{xml} and \gls{json}. JSON format is less verbose then XML and in consequence in sake of data transmission it would be performed faster than a XML representation fomat.
   \item [representation metadata] \hfill \\
   This metadata describes the data of which the represenation consists of.
    \item [resource metadata] \hfill \\
   Resource metadata stores an information about the resource that is not specific to the supplied representation.
   \item [control data] \hfill \\
-  Control data decribes the purpose of a message between components. /TODO what does it mean
+  Control data decribes the purpose of a message between components. %TODO what does it mean
   %% R http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
 \end{description}
 
-The connectors provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel 
+The \emph{connectors} provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel. 
 
-REST components are an abstraction of application unit. The components are origin server, gateway, proxy, user agent.
+REST \emph{components} are an abstraction of application unit. The components are origin server, gateway, proxy, user agent.
 
-
-\section{REST resource and rapresentation}
-Every resource has its representation, it describes how resources get manipulated in RESTful API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many more other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
+Every resource has its representation, it describes how resources get manipulated in RESTful API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
 
 \section{REST constraints}
 \label{sec:constraints}
@@ -44,32 +44,22 @@ Six constraints that are applied to the architecture to create RESTful services.
 %%(citacia http://www.restapitutorial.com/lessons/whatisrest.html#)
 \begin{description}
   \item The six constraints are:
+  
+%TODO write about HATEOAS
 
 \begin{enumerate}
   \item Uniform Interface
   
-Define interface between client and server. It separates client and server allowing them to develop each part independently. The interface is uniform, so that is
-easier to understand for both, the server and the client.
-Interface is resource-based - requests in \emph {URI} (Uniform Resource Idetifier) contain the resource identifiers which identifies the concrete resource. To the client is then sent the representation which is conceptually separated from the resource. The representation is commonly in HTML, XML or JSON format and represents appropriate database record.
+Define interface between client and server. It separates client and server allowing them to develop each part independently. The interface is uniform, so that is easy to understand for both, the server and the client.
+Interface is resource-based - requests in \gls{uri} contain the resource identifiers which identifies the concrete resource. To the client is then sent the representation which is conceptually separated from the resource. The representation is commonly XML or JSON format and represents appropriate database record.
 Resources are manipulated exclusively throught the rapresentations. The representation with any metadata attached, keeps enough information for the client and allow him to modify the resource on the server.
 The sentmessage which represents the request sent by client or the response form the server is self-decriptive. That means there is enough information to know hov to process the message and the response explicitely defines the cashability.
-The representation is sent using \emph{HTTP specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
-
+The representation is sent using \emph{\gls{http} specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
 
   \item Stateless
-
-The messages in REST architecture are stateless, the state can be stored via \emph {HATEOAS} (Hypermedia as the Engine ot Application State). From client side, the state can be delivered through body content of the message (request), query parematers in the URI, headers in request. From server side the state can be delivered via body content of the message (response), response code and respone header. 
-The necessary state is contained within the request, there are more options how to store it, whether it can be a part od the URI, query-string paremeter, header or body.The Uri identifies the concrete resource and the body includes the state. Then after process the message the state is send back to the client via headers, status and response body.
-The statelessness allows greater scalability, because server doesn't have to cammunicate with the session, which creatiaon is necessary to carry the state using some other design of services.
-
-
-Each message is self-descriptive, has enough context to be processable by the server. Messages has no state. If the state is needed, the representation is what is holding it.?????
-
-(Session state is therefore kept entirely on the client.
-
-Visibility is improved because a monitoring system does not have to look beyond a single request datum in order to determine the full nature of the request. Reliability is improved because it eases the task of recovering from partial failures [133]. Scalability is improved because not having to store state between requests allows the server component to quickly free resources, and further simplifies implementation because the server doesn't have to manage resource usage across requests.
-
-The disadvantage is that it may decrease network performance by increasing the repetitive data. The data cannot be left on the server in a shared context. Placing the application state on the client-side reduces the server's control over consistent application behavior, application is dependent on the clients implementation) %http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+  
+Each message is self-descriptive, a request has enough context to be understand so that the messages has no state. Any state of a \gls{session} is held just on the client side.
+The statelessness allows greater scalability, because server doesn't have to cammunicate with the session, which can be created to carry the state using another architectural style of services. Relaibility is improved because of easier recovery of partial failures. Disadvantage is that the requsts which are sent contain repetitive data and the server has lower control over the application behaviour.
 
 \item Client-server
 
@@ -77,11 +67,20 @@ RESTful architecture is client-server architecture. There are two disconnected c
 
 \item Casheable
 
-Server responses (representations) are casheable, everything that comes back to server or from REST service could be casheable. Responses are able to to define themselfs as cashable implicitly (it’s not noted in general client), explicitly (server specifies) or negotiated (to figure out how long can be cashed), to avoid the inappropriate reuse of data contained in response in further requests. Cashing partially limits the clinet-server interacton but improves the scalability and performance.
+Server responses (representations) are casheable, everything that comes back to server or from REST service could be casheable. Responses are able to to define themselfs as cashable implicitly (it’s not noted in general client), explicitly (server specifies) or negotiated (to figure out how long can be cashed), to avoid the inappropriate reuse of data contained in response in further requests. Cashing partially limits the clinet-server interaction but improves the scalability and performance. 
+Picture \ref{fig:casheability} describes possible options of casheability.
+
+%TODO rewrite 
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=12cm]{img/casheability.pdf}}
+\caption{Casheability options}
+\label{fig:casheability}
+\end{figure} 
 
 \item Layered system
 
-Linked to cashability and client-server. Client is not able to see if he is communicating diractly with the server, or wit som intermedia between them. Intermedia improves scalability, provide shared cashes and morover can enforce the security policies.
+Linked to cashability and client-server constraints. Client is not able to see if he is communicating diractly with the server, or with an intermedia between them. Intermedia improves scalability, provide shared cashes and morover can enforce the security policies.
 
 \item Code on demand (optional)
 
@@ -91,8 +90,35 @@ This constraint is unique, it is the only one which can be violated and the serv
 \end{enumerate}
 \end{description}
 
-\section{Application of REST in a corporation}
-The constraints of RESTful services are mandaroty. When a company wants to develop a system with RESTful services it has to applied at least the first five of them. But it can occure when not all the constraints are profitable for the application which is required to create. In this case when all obliged constrainst aren't applied the services cannot be marked as RESTful. But this not affect the services themselfs.
+\bigskip
+\section{Application of REST}
+
+Having the SOA and knowing the constraints of the REST the RESTful services can be designed. When a company wants to develop a system with RESTful services it has to apply at least the first five of them. But it can occure that not all the constraints are profitable for an application. In this case the architecture can forget some of them but the services cannot be further marked as RESTful. The notation doesn't affect services themselfs, the result can be still the best design for current application.
+
+To convert all the theory into the practice, the sipmle web service which has all of REST elements and keeps the constraints will be created. In designing the service there will be consider the notation of \gls{webapi} \gls{framework}. 
+
+The expample service is representing bussiness abstraction of a \emph{customer} of the company using the application to offer its products. Customer can be viewed, created, modified or deleted. For this goal the HTTP requests are used (GET, POST, PUT, DELETE). 
+
+Resource identifier is a URI address. In ASP.NET Web API is composed from \emph{controller}, which is a class handling the HTTP request and a method of the controller which is called \emph{action}. In case of customer service example the controller is \emph{customer}, the action can be \emph{GET} and to identify a specific customer the parameter \emph{name} as to be a part of URI.
+
+\lstset{frame=none,
+  language=JAVA,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=false,
+  breakatwhitespace=false,
+  tabsize=3
+}
+
+\begin{lstlisting}
+GET customers/getByName/name="Peter"
+\end{lstlisting}
+
+
 %!TODO 
 %%\footnote{Technologie jsou popsány v sekci~\ref{sec:technologies}.} 
 
