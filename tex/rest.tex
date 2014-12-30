@@ -13,7 +13,7 @@ REST has its best practices and constraints. The servicies built according to th
 
 REST arcitecture is a composition of elements, connectors and components. None of them defines a technology but they are abstractions. The elements abstract a bahviour of components. The components have its roles, the way of interaction among them and interpretation.
 
-The \emph{data elements} are: %TODO examples
+The \emph{data elements} are:
 
 \begin{description}
   \item [resource] \hfill \\ 
@@ -30,8 +30,6 @@ The \emph{data elements} are: %TODO examples
     \item[In plain text] \texttt{Mon Nov 29 2014 18:03:19 GMT+0100}
     \item[In xml format] \texttt{<time>2014-11-29T18:03:19+01:00</time>}
   \end{description}
-  
-  
   \item [representation metadata] \hfill \\
   This metadata describes the data of which the represenation consists of.
   Examples: \hfill \\
@@ -41,13 +39,12 @@ The \emph{data elements} are: %TODO examples
   Resource metadata stores an information about the resource that is not specific to the supplied representation.
   Example: \texttt{Allow: GET}
   \item [control data] \hfill \\
-  Control data decribes the purpose of a message between components. %TODO what does it mean
-  %% R http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+  Control data decribes the purpose of a message between components, for expamle \emph{GET} and parametizes the request, for expample to define casheability. 
 \end{description}
 
-The \emph{connectors} provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel. 
+The \emph{connectors} provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel. %TODO explanation, mabye image
 
-REST \emph{components} are an abstraction of application unit. The components are origin server, gateway, proxy, user agent.
+REST \emph{components} are an abstraction of application unit. The components are origin server, gateway, proxy, user agent. %TODO explanation, mabye image
 
 Every resource has its representation, it describes how resources get manipulated in RESTful API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
 
@@ -114,8 +111,6 @@ Having the SOA and knowing the constraints of the REST services can be designed.
 There is a cropration with SOA and its services are designed according to REST constraints. One of the services is representing bussiness abstraction of \emph{customers} of the company. Customers can be viewed, created, modified or deleted. For this goal the HTTP requests are used (GET, POST, PUT, DELETE). 
 
 In designing the service there will be considered the notation of \gls{webapi} \gls{framework}. 
-
- 
 
 Resource identifier is a URI address. In ASP.NET Web API is composed from \emph{controller}, which is a class handling the HTTP request and a method of the controller which is called \emph{action}. In case of customer service example the controller is \emph{customer}, the action can be \emph{GET} and to identify a specific customer the parameter \emph{name} as to be a part of URI.
 
