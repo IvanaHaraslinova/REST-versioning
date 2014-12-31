@@ -48,12 +48,35 @@ The implementation of the service can be changed do that the new service is back
 
 Changes of the implementation lead to the versioning the code. Compatible changes can be done without necessity of new version, but they can be versioned after specific numbers of changes, just for proper change management. In case of a breaking change, the code has to be versioned. Incompatible changes requires deprecation, code which has been changed needs to be deprecated to not break the consumer code. Deprecation ensures the backward compatibility od breaking changes.
 
-Lets have a company which has two streams, one where a developmnet proceed and the other one is a stable stream. At this point the code is versioned, the version in the company can look like {stream name}{verison number}. Code present in the stable stram is possible to build and produce the dll files. Dll files are deplyed to consumer environment when he is prepared for new release. The process can be seen at the picutre %TODO add picture
-%TODO add dll in glossary
+%popis infrasturkury
+Lets have a company which has two streams, one where a developmnet proceed and the other one is a staging stream with stable code. At this point the code is versioned, the version in the company can look like {stream name}{verison number}. Code present in the staging stream is possible to build and produce the dll files. Dll files are deplyed on a server. Consumers are connecting to this server to use services. The process can be seen at the picutre \ref{fig:soa-architecture}
+%TODO add dll in glossary, add stable in glossary
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=13cm]{img/service-implementation.pdf}}
+\caption{Process of deployment of implementation changes}
+\label{fig:service-implementation}
+\end{figure} 
+
+When a new verison is released into the staging stream code is marked by a version number. The version number is usually composed from four digits {StreamName} X.Y.Z.B where the first change is major change of code and is increased when an important change is done. 
+%TODO version number
+On the server is just one version of the code. If another version is needed to be availible it has to be deployed on another server. Then customers are using different servers, as shown on the image 
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=13cm]{img/consumer-server.pdf}}
+\caption{}
+\label{fig:consumer-server}
+\end{figure} 
 
 \subsection{Definition of versioning}
 
-The service layer of application which is developed by the provider is a solutions which are composed from projects, projects contain services and services has methods (actions). The design is shown on image %TODO insert image
+The service layer of application which is developed by the provider is composed of projects containing services, these services has its methods (actions). The design is shown on image \ref{fig:service-layer-design}
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=11cm]{img/service-layer-design.pdf}}
+\caption{Design of service layer}
+\label{fig:service-layer-design}
+\end{figure} 
 
 %Each version has its own implementation and is distinguishably addressed.
 
