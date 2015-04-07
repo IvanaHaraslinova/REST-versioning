@@ -1,5 +1,3 @@
-
-
 \chapter{Representative State Transfer (REST)}
 \label{chap:rest}
 
@@ -18,10 +16,25 @@ The \emph{data elements} are:
 \begin{description}
   \item [resource] \hfill \\ 
   Resource is an abstraction of information in REST, where any information which can be named can be a resource. "A resource is a conceptual mapping to a set of entities.." \cite{fielding} or set of values. The values can be a resource identifier and a representation.
-  Resource can be static, for expamle \emph{an image}, or dynamic, \emph{the time} which dynamicaly changes.
+  Resource can be static, for expamle \emph{an image}, or dynamic, \emph{the time} which dynamicaly changes and selected name for a resource is a noun (not verb).
+  
+  examples of resources: customer, account, ..
+
   \item [resource identifier] \hfill \\
-  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference the recource. The identifiers is \gls{uri}, it marks a path where the resource is situated. A request form client is routed to the specific address and method which will be performed.
+  It serves to identify resources which interact with componets. The resource identifier is assigning the name thanks to which it is possible to reference appropriate resource. The identifiers is \gls{uri}, it marks a path where the resource is situated. A request form client is routed to the specific address and method which will be performed. When 
   The resource identifier for \emph{the time} then looks like: \hfill \\
+There should be possible to perform the CRUD operations with the resources, every operation can be mapped on HTTP method to have its own identifier
+
+examples:
+
+GET     /customers      Retrives all customers
+GET     /customers/5    Retrives customer with id 5
+POST    /accounts       Creates new account
+PUT     /accounts/13    Updates account with id 13
+DELETE  /customer/2     Deletes customer with id 2   
+
+ 
+  resource identifiers 
   \texttt{http://www.api.com/time}
   \item [representation] \hfill \\
   Rapresentation is used by REST components to perform changes to the resource. Format of representations data is called media type and have influence on the performance of the hypermedia. Media types can be proprietary or standardized, from standardized types there are for comparison \gls{xml} and \gls{json}. JSON format is less verbose then XML and in consequence in sake of data transmission it would be performed faster than a XML representation fomat.
@@ -45,6 +58,8 @@ The \emph{data elements} are:
 The \emph{connectors} provides the access point for the values of the resource. In connectors belong client, server, cache, resolver, tunnel. %TODO explanation, mabye image
 
 REST \emph{components} are an abstraction of application unit. The components are origin server, gateway, proxy, user agent. %TODO explanation, mabye image
+
+\bigskip
 
 Every resource has its representation, it describes how resources get manipulated in RESTful API architecture. The representation represents part of (or less commonly the whole) resource state, it is transferred between the client and server and has generally the JSON or XML format, but could be in many other formats as well. The representation is composed from resource and attached files which provide enough information for the client to be able to modify the resource on the server.
 

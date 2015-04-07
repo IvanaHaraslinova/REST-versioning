@@ -30,10 +30,18 @@ The speed of changes in the bussines department is too fast to be passed directl
 Services are the logic units form which is composed the \gls{service-oriented-design}. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployerd independetly on another one and on the system which use it. It allows a parallel development, one service can be a part of many products of the corporation.
 "The essence of Service in the SOA context is the business abstraction - that is a representation of funcionality and/or data presented in business context." \cite{agile-architecture}
 
+\subsection{Service lifecycle}
+\label{subsec:lifecycle}
+Services have thair lifecycle, there are stages:
+serice-oriented analysis, service-oriented design, service logic design, service development, service testing, service deployment and monitoring, serivce usage and monitoring, service discovery, service versioning and retirement.
+
+TODO service governance p.84
+
+
 \subsection{Levels of a service} 
 \label{subsec:levels-of-serivce}
 
-There are three levels of how we can interpret the expression \emph{'Service'} in SOA context \cite{agile-architecture}:
+There are three levels of how we can interpret the expression \emph{Service} in SOA context \cite{agile-architecture}:
 \begin{enumerate}
   \item \textbf{Service implementation} \hfill \\
 Service implementation is the code performing the logic.
@@ -45,50 +53,53 @@ Abstracted service or business service represents a business capability or data.
 
 There is a many-to-many relationship between these three levels. Business service can represents muliple interfaces and in the same time one interface can be supported by multiple implementation.
 
-/TODO image
+%TODO picture of service levels
 
-\subsection{Service categories and types} 
+%\subsection{Service categories and types} 
 
-There are two main types of services. The first type is composed by infrastructural services which provide the facilities and aren't a part of application. To the second type belongs services which are the part of the application and provide main logic.
+%There are two main types of services. The first type is composed by infrastructural services which provide the facilities and aren't a part of application. To the second type belongs services which are the part of the application and provide main logic.
 
 \bigskip
 %TODO decribe services
 
-Service categories \cite{website:ontology-taxonomy} :
-\begin{description}
-  \item[Bus services] can be further divided into 
-  \begin{enumerate}
-    \item Communication services 
-    \item Utility services
-  \end{enumerate}
-  \item[Application services] consist of   
-  \begin{enumerate}
-    \item Entity services
-    \item Capability services
-    \item Activity services
-    \item Process services
-  \end{enumerate}
-\end{description}
+%Service categories \cite{website:ontology-taxonomy} :
+%\begin{description}
+ % \item[Bus services] can be further divided into 
+  %\begin{enumerate}
+   % \item Communication services 
+    %\item Utility services
+  %\end{enumerate}
+  %\item[Application services] consist of   
+  %\begin{enumerate}
+   % \item Entity services
+    %\item Capability services
+    %\item Activity services
+    %\item Process services
+  %\end{enumerate}
+%\end{description}
 
-%TODO image
+%TODO image 
 
 \section{Services granularity}
 \label{sec:granularity}
-During the analytical part of the service design it can be defined the service granularity. The service granularity describes functional scope of the serivce. When the granularity is fine, it means the service contains little logic. On the other hand there are coarse-grained serices which have complex logic but at the expense of flexibility.
-Defining the granularity can help to determine characteristics of a serivce - its performance or size of message. \cite{soa-contract} When service 
+During the analytical part of the service design it can be defined service granularity. As it is written above services are composing the business processes. The service granularity describes properties of the services with respect to the processes. Defining the granularity determine characteristics of a serivce. Services can be fine-grained or coarse-grained.
+When services are fine-grained consequntly the number of services is higher containing less logic therfore the costs for the implementation are smaller and the higher reusability is provided. However the effort needed to compose these services into a process is higher. 
+On the other side when services are coarse-grained they contain more complex logic, are easily composing the process, but the reusability is limited and more effort is requred to implement them.
 
 \section{Approaches of implementation of web services}
-Web services are one group of services, these are intended to work on a network such as Internet.
+Web services are one group of services, these are intended to work on a network such as the Internet.
 
 \subsection{Evolution of approches}
-\subsubsection{WSDL RPC SOAP} 
+ 
+/TODO write shortly about RCP, WSDL, SOAP
 %TODO form agile arcitecture revolution
  
-\subsection{REST}
-%TODO WADL
+\subsubsection{REST}
+%TODO WADL ??
 
-Representational State Transfer, REST is an architectural style for building ditributed hypermedia applications.
-Thanks to REST disappeared many issues related to web services, but it comes with some new. This thesis deals with REST style and RESTfull services. \ref{chap:rest}
+Representational State Transfer, REST is an architectural style for building distributed hypermedia applications. This thesis deals with REST architectural style and REST services. They will be decribed in detail within the next chapter. \ref{chap:rest}
+
+
 
 %%\subsubsection*{\textbf{Guacamole} \hfill \emph{http://guac-dev.org/}}
 %%\label{subsec:guacamole}
