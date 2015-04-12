@@ -76,12 +76,12 @@ Six constraints that are applied to the architecture to create RESTful services.
 \begin{enumerate}
   \item Uniform Interface
   
-Define interface between client and server. It separates client and server allowing them to develop each part independently. The interface is uniform, so that is easy to understand for both, the server and the client.
+Define interface between client and server. It separates client and server allowing them to develop each part independently reducing the coupling between them. The interface is uniform, so that is easy to understand for both, the server and the client.
 Interface is resource-based - requests in \gls{uri} contain the resource identifiers which identifies the concrete resource. To the client is then sent the representation which is conceptually separated from the resource. The representation is commonly XML or JSON format and represents appropriate database record.
 Resources are manipulated exclusively throught the rapresentations. The representation with any metadata attached, keeps enough information for the client and allow him to modify the resource on the server.
 The sentmessage which represents the request sent by client or the response form the server is self-decriptive. That means there is enough information to know hov to process the message and the response explicitely defines the cashability.
 The representation is sent using \emph{\gls{http} specification}, client call the resource using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI, server sends to the client the HTTP response.
-The REST is not restricted only on the four HTTP methods, a service can implement its own methods, for example \texttt{GetByName}. The repsponse would be representation of resource corresponding to the name parameter contained in the request.
+The REST is not restricted only on the four HTTP methods, a service can implement its own methods, for example \texttt{GetByName}. The repsponse would be representation of resource corresponding to the name parameter contained in the request. 
 
   \item Stateless
   

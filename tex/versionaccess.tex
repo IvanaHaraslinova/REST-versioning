@@ -15,7 +15,7 @@ Deployment of the versions can be performed different ways. There are two main a
 \end{enumerate}
 
 \subsection{Version parameter}
-Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of verioning is the implementation. Behind one service which is accessed by one URI there are possibly more implementatios.
+Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of versioning is the implementation. Behind one service which is accessed by one URI there are possibly more implementatios.
 To access a requested version of the implementation it's used version parameter. It is present in request message sent by consumer. Thanks to the parameter the request is routed to appropriate implementation version.
 
 This approach is advantage for consumers, release of new version has minimal impact on them. But on the other side it requires a special attention on version strategy, it can lead to collision of names, database names, ect.
