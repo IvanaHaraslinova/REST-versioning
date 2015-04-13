@@ -1,13 +1,13 @@
-\chapter{Versioning access}
+\chapter{Version access}
 \label{chap:versionaccess}
 
-/TODO
+When the service interface is versioned the client has to know how to access requested version. There are more ways to implement this functionality. It has to be part of the agreement between client and server. Producer of service creates an access point for the new version and consumer has to modify his implementation according to agreed pattern to switch to this new version. 
 
 
 \section{Version identifiers}
-Version is typicaly identified by decimal number. The number is composed from a minor and a major number. Their incerase can be based on the amount of work which have been done between two releases of versions or the compatibility regarding the two versions. This approaches can be combined.
+Version is typically identified by decimal number. The number is composed from a minor and a major number. Their increase can be based on the amount of work which have been done between two releases of versions or the compatibility regarding the two versions. This approaches can be combined.
 
-\section{Accsess approaches}
+\section{Access approaches}
 Deployment of the versions can be performed different ways. There are two main approaches:
 \begin{enumerate}
   \item Version parameter
@@ -15,35 +15,35 @@ Deployment of the versions can be performed different ways. There are two main a
 \end{enumerate}
 
 \subsection{Version parameter}
-Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of versioning is the implementation. Behind one service which is accessed by one URI there are possibly more implementatios.
+Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of versioning is the implementation. Behind one service which is accessed by one URI there are possibly more implementations.
 To access a requested version of the implementation it's used version parameter. It is present in request message sent by consumer. Thanks to the parameter the request is routed to appropriate implementation version.
 
-This approach is advantage for consumers, release of new version has minimal impact on them. But on the other side it requires a special attention on version strategy, it can lead to collision of names, database names, ect.
+This approach is advantage for consumers, release of new version has minimal impact on them. But on the other side it requires a special attention on version strategy, it can lead to collision of names, database names, ecc.
 
 \subsection{Multiple endpoint addresses}
-In this approach each service version is deployed independently and has its own endpoint address. This time consumer is obliged to know which service and implementation versions wants to access. When a customer wants to pass to newer version he needs to make changes in request addresses. The advantage of the approach is that the names collisaions are eliminated by indipendent deployment of service versions. But the routing is more complex and requres addressing registry for resolving the addresses.
+In this approach each service version is deployed independently and has its own endpoint address. This time consumer is obliged to know which service and implementation versions wants to access. When a customer wants to pass to newer version he needs to make changes in request addresses. The advantage of the approach is that the names collisions are eliminated by independent deployment of service versions. But the routing is more complex and requires addressing registry for resolving the addresses.
 
-/TODO zdroj Vesioning in SOA, obrazky
+/TODO zdroj Versioning in SOA, obrazky
 
-There are a lots of different teories and opinions about the right approach to implementation of the versioning. The most discussed are the URI versioning and versioning using the headers. Uri versioning represents a multiple endpoint addresses approach described above and vesion in headers represents the version parameter approach.
+There are a lots of different theories and opinions about the right approach to implementation of the versioning. The most discussed are the URI versioning and versioning using the headers. Uri versioning represents a multiple endpoint addresses approach described above and version in headers represents the version parameter approach.
 
 \section{Versioning using URI}
 Version in URI is broadly used solution how to version. The version is displayed in the URI address:
 
 \texttt{http:/api.com/v1/accounts/123}
 
-This approach is easy to understand. The URI change when a new verion is released so that it routes to the right version. But this appriach brings a lot of disadvatages. There are more option how to handle with consumers - let the consumer change the URI everytime the version changes, or a consumer obtains fixed URI or the consumer can change its implementation from scratch, which does not involve many work, but it is unaccetable regarding a user.
+This approach is easy to understand. The URI change when a new version is released so that it routes to the right version. But this approach brings a lot of disadvantages. There are more option how to handle with consumers - let the consumer change the URI every time the version changes, or a consumer obtains fixed URI or the consumer can change its implementation from scratch, which does not involve many work, but it is unacceptable regarding a user.
 Everyone form this option is constraining the flexibility.
 The version should not influence the consumer usability of the system and has to have minimal possible impact on it. If the consumer should change the routing everytime he switch to the new version it is not good and there are possibilities how to access the version better.
 
-Moreover having a look at the REST constraints, as they are described by Fitztadidaa, this approach violates the HATEOS principle. 
+Moreover having a look at the REST constraints, as they are described by Fitztadidaa, this approach violates the HATEOS principle. But there are several opinions that this principle is not going to be followed in modern service design. 
 /TODO finish section 
 
 The URI containing version can be used for internal purposes, when the code is debugged and tested, but in the production should not be present.
 
 \section{Versioning based on headers}
 \subsection{Link header}
-The link header can be used to define version of the service which should be used. When the request is sent the consumer obtain a response which is enriched by the link. When consumer uses the old verion of the service he just ignores the link. The user of the new service can follow the added link and reach the newest version of the response.
+The link header can be used to define version of the service which should be used. When the request is sent the consumer obtain a response which is enriched by the link. When consumer uses the old version of the service he just ignores the link. The user of the new service can follow the added link and reach the newest version of the response.
 
 \texttt{http://example.com/v2/rels/v2-equivalent}
 
@@ -59,3 +59,4 @@ The link header can be used to define version of the service which should be use
 \texttt{GET /accounts/123 HTTP/1.1}
 
 \texttt{Accept: application/vnd.v2+json}
+
