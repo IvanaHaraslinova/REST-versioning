@@ -1,12 +1,12 @@
 \chapter{Service-oriented computing}
 \label{chap:service-oriented computing}
-\emph{Service-oriented computing} represents a distributed computing platform. [1] It has its own paradigm, logic, architecture and patterns. It is built on the distributed computing platforms and extends it by new considerations about governance, design layers and technologies suitable for its implementation.
+\emph{Service-oriented computing} represents a distributed computing platform [1]. It has its own paradigm, logic, architecture and patterns. It is built on the distributed computing platforms and extends it by new considerations about governance, design layers and technologies suitable for its implementation.
 \emph{Service orientation} is a design paradigm, it divides the system into logic units which are separately shaped and can be utilized according to strategic goals and benefits of a requested result.
 
 \section{Service-oriented architecture}
-\emph{Service-oriented architecture (SOA)} is a set of best practices for an organization leading to agile architectural model of the system to meet business needs. Result of applied practices is an architecture which corresponds to dynamic market changes. The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.
+\emph{Service-oriented architecture (SOA)} is a set of best practices for an organization leading to agile architectural model of the system to meet business needs. Result of applied practices is an architecture which corresponds to dynamic market changes. The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.\par
 
-The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the examples of horizontal layers is designed in picture \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (excluding potential harms). In this example provider develops an application containing services which has access to a database using adapter. The \gls{adapter} serves to transform data from database to date useful for services and vice-versa. Services are entry point for consumer application, thanks to them he has an access to the data without direct access to database.
+The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the examples of horizontal layers is designed in picture \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (excluding potential harms). In this example provider develops an application containing services which have access to a database using adapter. The \textit{\gls{adapter}} serves to transform data from database to data useful for services and vice-versa. \textit{Services} are entry point for consumer application, thanks to them he has an access to the data without direct access to \textit{database}.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/soa-architecture.pdf}}
@@ -14,8 +14,8 @@ The architecture is layered. Layers can be multiple and can differ according to 
 \label{fig:soa-architecture}
 \end{figure}  
 
-One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. "SOA is based on a decomposition of enterprise IT assets and separation of "stable" IT artifacts (services) from "changeable" artifacts (business processes), orchestrating services into IT solutions (processes)." \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
-Above mentioned services are essential part of SOA. Relationship between them and a business process constituted by services is visualized in the picture \ref{fig:business-process-services}.
+One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. \textit{"SOA is based on a decomposition of enterprise IT assets and separation of 'stable' IT artifacts (services) from 'changeable' artifacts (business processes), orchestrating services into IT solutions (processes)."} \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
+Above mentioned services are essential part of SOA. Relationship between them and a business process constituted by services are visualized in the picture \ref{fig:business-process-services}. The business process is a process from real world which workflow is simulated by services. A task of this process is composed by one or more of them. Services perform the logic, comunicate with underlied leyers to retrieve and store data to operate as a business process.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=12cm]{img/business-process-services.pdf}}
@@ -28,12 +28,30 @@ The speed of changes in the business department is too fast to be passed directl
 \section{Services}
 \label{sec:services}
 Services are the logic units form which is composed the \gls{service-oriented-design}. Every service is standalone object or component. Every service has its own functional context and related capabilities. Each service is deployed independently on another one and on the system which use it. It allows a parallel development, one service can be a part of many products of the corporation.
-"The essence of Service in the SOA context is the business abstraction - that is a representation of functionality and/or data presented in business context." \cite{agile-architecture}
+\textit{"The essence of Service in the SOA context is the business abstraction - that is a representation of functionality and/or data presented in business context."} \cite{agile-architecture}
 
 \subsection{Service lifecycle}
 \label{subsec:lifecycle}
 Services have their lifecycle, there are stages:
-service-oriented analysis, service-oriented design, service logic design, service development, service testing, service deployment and monitoring, service usage and monitoring, service discovery, service versioning and retirement.
+service-oriented analysis, service-oriented design, service logic design, service development, service testing, service deployment and monitoring, service usage and monitoring, service discovery, service versioning and retirement. \cite{soa-governance}
+
+\begin{enumerate}
+  \item Service-oriented ananlysis
+  During this phase there are created the services candidates, their capabilities and compositions. The analysis is typically interative, for each business process is created a service inventory.
+  \item Service-oriented design
+  The stage designs the service contracts. For every service candidate it is considered a technical contract, in case of REST services (described in section \ref{sec:rest}) it is inevitable to think of HTTP method usage, resource identifiers and header parameters.
+  \item Serivce Logic Design
+  Phase establish the service architecture and its logic so that the service will carrying out the functionality resulted from the contract.
+  \item Service Development
+  The implementation of the services is performed. It is based on specifications and architecture design from previous stages.
+  \item Service Testing
+  The implemented services needs to be tested to provide the quality assurance of developed application.
+  \item Service Deployment and Maintenance
+  In this phase the services are deployed on production environment. Maintenance involves changes and upgrades of services regarding to production environment, but it doesn't include changes which would result in new version of services.
+  \item Service Usage and Monitoring
+  \item Serivce Discovery
+  \item Service Versioning and Retirement
+\end{enumerate}
 
 TODO service governance p.84
 
@@ -122,6 +140,5 @@ Representational State Transfer, REST is an architectural style for building dis
   %%\end{tabular}
 %%\end{table}
 %% \emph \emph \texttt.
-
 
 
