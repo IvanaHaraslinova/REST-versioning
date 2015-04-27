@@ -36,25 +36,25 @@ Services have their lifecycle, there are stages:
 service-oriented analysis, service-oriented design, service logic design, service development, service testing, service deployment and monitoring, service usage and monitoring, service discovery, service versioning and retirement. \cite{soa-governance}
 
 \begin{enumerate}
-  \item Service-oriented ananlysis
+  \item Service-oriented ananlysis \\
   During this phase there are created the services candidates, their capabilities and compositions. The analysis is typically interative, for each business process is created a service inventory.
-  \item Service-oriented design
+  \item Service-oriented design \\
   The stage designs the service contracts. For every service candidate it is considered a technical contract, in case of REST services (described in section \ref{sec:rest}) it is inevitable to think of HTTP method usage, resource identifiers and header parameters.
-  \item Serivce Logic Design
+  \item Serivce Logic Design \\
   Phase establish the service architecture and its logic so that the service will carrying out the functionality resulted from the contract.
-  \item Service Development
+  \item Service Development \\
   The implementation of the services is performed. It is based on specifications and architecture design from previous stages.
-  \item Service Testing
+  \item Service Testing \\
   The implemented services needs to be tested to provide the quality assurance of developed application.
-  \item Service Deployment and Maintenance
+  \item Service Deployment and Maintenance \\
   In this phase the services are deployed on production environment. Maintenance involves changes and upgrades of services regarding to production environment, but it doesn't include changes which would result in new version of services.
-  \item Service Usage and Monitoring
-  \item Serivce Discovery
-  \item Service Versioning and Retirement
+  \item Service Usage and Monitoring \\
+  Deployed servise which is in use is an object of monitoring. It is essential for obtaining the numbers related to various metrics. Measured values can positively influence the maintenance and are further used for business assessment.
+  \item Serivce Discovery \\
+  Process of identifying \gls{agnostic-services} throughout the given service inventory.
+  \item Service Versioning and Retirement \\
+  After deployment and usage can arise a need for change of the logic of a service or addition of a new one. Emission of new serivce version occures. How to version the services will be explained accross the next sections. Retirement encompasses the termination of the use of the serivice. Regarding to service versioning a version of service which is no longer in use can be retired.
 \end{enumerate}
-
-TODO service governance p.84
-
 
 \subsection{Levels of a service} 
 \label{subsec:levels-of-service}
@@ -98,10 +98,13 @@ There is a many-to-many relationship between these three levels. Business servic
 
 %TODO image 
 
-\section{Services granularity}
+\section{Granularity}
 \label{sec:granularity}
-During the analytical part of the service design it can be defined service granularity. As it is written above services are composing the business processes. The service granularity describes properties of the services with respect to the processes. Defining the granularity determine characteristics of a service. Services can be fine-grained or coarse-grained.
-When services are fine-grained consequently the number of services is higher containing less logic therefore the costs for the implementation are smaller and the higher reusability is provided. However the effort needed to compose these services into a process is higher. 
+In SOA context granularity is often used expression, it is related to how much data is understood under one unit regarding to whole data pool. It is possible to distinguish between from fine-grained to coarse-grained granularity, where fine-grained contains small amount of data in one unit respective to whole data pool. On the contrary the coarser granularity bears much more data in one unit.
+
+\subsection{Service granularity}
+Service granularity is defined during analytical part of the service design. As it is written above services are composing the business processes.\par
+Granularity determines properties of the services with respect to the processes. Services can be fine-grained up to coarse-grained. When services are fine-grained consequently the number of services is higher containing less logic therefore the costs for the implementation are smaller and the higher reusability is provided. However the effort needed to compose these services into a process is higher. 
 On the other side when services are coarse-grained they contain more complex logic, are easily composing the process, but the reusability is limited and more effort is required to implement them.
 
 \section{Approaches of implementation of web services}
@@ -140,5 +143,4 @@ Representational State Transfer, REST is an architectural style for building dis
   %%\end{tabular}
 %%\end{table}
 %% \emph \emph \texttt.
-
 
