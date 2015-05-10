@@ -6,7 +6,7 @@
 \section{Service-oriented architecture}
 \emph{Service-oriented architecture (SOA)} is a set of best practices for an organization leading to agile architectural model of the system to meet business needs. Result of applied practices is an architecture which corresponds to dynamic market changes. The SOA best practices are describing the human behaviour, there is no list of constraints which have to be followed to obtain a service-oriented architecture. The best practices are designed to resolve specific situations which the organization can meet and depending on them could be selected just a subset of appropriate practices which are necessary to apply.\par
 
-The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the examples of horizontal layers is designed in picture \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (excluding potential harms). In this example provider develops an application containing services which have access to a database using adapter. The \textit{\gls{adapter}} serves to transform data from database to data useful for services and vice-versa. \textit{Services} are entry point for consumer application, thanks to them he has an access to the data without direct access to \textit{database}.
+The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the examples of horizontal layers is designed in Figure \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (excluding potential harms). In this example provider develops an application containing services which have access to a database using adapter. The \textit{\gls{adapter}} serves to transform data from database to data useful for services and vice-versa. \textit{Services} are entry point for consumer application, thanks to them he has an access to the data without direct access to \textit{database}.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/soa-architecture.pdf}}
@@ -15,7 +15,7 @@ The architecture is layered. Layers can be multiple and can differ according to 
 \end{figure}  
 
 One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. \textit{"SOA is based on a decomposition of enterprise IT assets and separation of 'stable' IT artifacts (services) from 'changeable' artifacts (business processes), orchestrating services into IT solutions (processes)."} \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
-Above mentioned services are essential part of SOA. Relationship between them and a business process constituted by services are visualized in the picture \ref{fig:business-process-services}. The business process is a process from real world which workflow is simulated by services. A task of this process is composed by one or more of them. Services perform the logic, comunicate with underlied leyers to retrieve and store data to operate as a business process.
+Above mentioned services are essential part of SOA. Relationship between them and a business process constituted by services are visualized in the Figure \ref{fig:business-process-services}. The business process is a process from real world which workflow is simulated by services. A task of this process is composed by one or more of them. Services perform the logic, comunicate with underlied leyers to retrieve and store data to operate as a business process.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=12cm]{img/business-process-services.pdf}}
@@ -143,4 +143,3 @@ Representational State Transfer, REST is an architectural style for building dis
   %%\end{tabular}
 %%\end{table}
 %% \emph \emph \texttt.
-
