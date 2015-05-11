@@ -1,6 +1,19 @@
 \chapter{Representative State Transfer (REST)}
 \label{chap:rest}
 
+\lstset{frame=none,
+  language=JAVA,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=false,
+  breakatwhitespace=false,
+  tabsize=3
+}
+
 \section{REST architecture}
 \label{sec:rest-architecture}
 
@@ -167,46 +180,54 @@ This constraint is unique, it is the only one which can be violated and the serv
 
 \section{Application of REST}
 
-Having the SOA and knowing the constraints of the REST services can be designed. When a company wants to develop a system with RESTful services it has to apply at least the first five of constraints. But it can occur that not all the constraints are profitable for an application. In this case the architecture can forget some of them but the services cannot be further marked as RESTful. This notation doesn't affect services themselves, the result can be still the best design for current application.
+Having the SOA and knowing the constraints of the REST services can be designed. When a company wants to develop a system with RESTful services it has to apply at least the first five of constraints. But it can occur that not all the constraints are profitable for an application. In this case the architecture can forget some of them but the services cannot be further marked as RESTful. This notation doesn't affect services themselves, the result can be still the best design for current application. The RESTful services and their constraints are one of the possible resolutions of architectural style. They are not the universal solution for system architecture.
 
 \subsection{RESTful service example}
-There is a corporation with SOA and its services are designed according to REST constraints. One of the services is representing business abstraction of \emph{customers} of the company. Customers can be viewed, created, modified or deleted. For this goal the HTTP requests are used (GET, POST, PUT, DELETE). 
+There is a corporation with SOA and its services are designed according to REST constraints. One of the services is representing business abstraction of \emph{customers} of the company. Customers can be viewed, created, modified or deleted. The HTTP verbs (GET, POST, PUT, DELETE) are used to perform the operations. 
 
-In designing the service there will be considered the notation of \gls{webapi} \gls{framework}. 
+In designing the service there is considered the notation of \gls{webapi} \gls{framework}. 
 
-Resource identifier is a URI address. In ASP.NET Web API is composed from \emph{controller}, which is a class handling the HTTP request and a method of the controller which is called \emph{action}. In case of customer service example the controller is \emph{customer}, the action can be \emph{GET} and to identify a specific customer the parameter \emph{name} as to be a part of URI.
-
-\lstset{frame=none,
-  language=JAVA,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  numbers=none,
-  breaklines=false,
-  breakatwhitespace=false,
-  tabsize=3
-}
+Resource identifier is a \gls{uri} address. ASP.NET Web API is composed of \emph{controller} and an \emph{action}. The controller is a class handling the HTTP request and the action is a method of the controller. In this example the controller is \emph{customers}, the action can be \emph{GET} and to identify a specific customer the parameter \emph{name} as to be a part of URI.
 
 \begin{lstlisting}
-GET customers/getByName/{name} 
+    GET     customers/getByName/{name} 
 \end{lstlisting}
 
 When the client wants to get the customer whose name is \emph{Peter} then the request looks like:
 
 \begin{lstlisting}
-GET customers/getByName/Peter 
+    GET     customers/getByName/Peter 
 \end{lstlisting}
 
-Thanks to URI the request is routed to specific resource and returns a response. This response is a representation containing customer identified by requested name. Representation has its media type which are stated in the metadata in this  example it's JSON format:
+Thanks to URI the request is routed to specific resource and returns a response. In this response is a representation containing customer identified by requested name. Representation has its media type which are stated in the metadata in this  example it's JSON format:
 
 \begin{lstlisting}
-{ "id": 2,
-"name": "Peter",
-"surname": "Sun",
-"e-mail": "peter.sun@service.com" }
+    { 
+    "name": "Peter",
+    "surname": "Sun",
+    "e-mail": "peter.sun@service.com" 
+    }
 \end{lstlisting}
+
+When the number of customers increases it is not hard to realize that the name identifier is not sufficient. There might be more than just one of the customer named "Peter". The name is obviously not unique and the best solution how to identify an entity is to assign it unique \emph{id} identifier. 
+
+The request and response than look like:
+\begin{lstlisting}
+    GET     customers/getByName/{id} 
+    
+    GET     customers/getByName/2 
+    
+    { 
+    "id": 2,
+    "name": "Peter",
+    "surname": "Sun",
+    "e-mail": "peter.sun@service.com" 
+    }
+\end{lstlisting}
+
+
+In case the service from the example above is already released and used by client a change can be done. The need of changes like this one is seriously affecting server and client and it is necessary the change is implemented by both of them. How to handle them is a main topic of this thesis and will be explained and analysed in the rest of this work.
+
 
 
 
