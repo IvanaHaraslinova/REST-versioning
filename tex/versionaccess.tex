@@ -59,3 +59,31 @@ The link header can be used to define version of the service which should be use
 \texttt{GET /accounts/123 HTTP/1.1}
 
 \texttt{Accept: application/vnd.v2+json}
+
+
+Versioning strategies in popular REST APIs (http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/)
+\begin{center}
+\begin{tabular}{l l l}
+API NAME & VERSIONING &	EXAMPLE \\
+Twillo & date in URI \\
+Twitter &	URI \\
+Atlassian & URI \\
+Google Search	& URI	\\
+Github API	& URI/Media Type in v3 & Intention is to remove versioning in favour of hypermedia – \begin{lstlisting}current application/vnd.github.v3\end{lstlisting} \\
+Azure	& Custom Header	& \begin{lstlisting}x-ms-version: 2011-08-18\end{lstlisting} \\
+Facebook & URI/optional versioning	& \begin{lstlisting}graph.facebook.com/v1.0/me\end{lstlisting} \\
+Bing Maps &	URI	\\
+Netflix	& URI parameter	& \begin{lstlisting}http://api.netflix.com/catalog/titles/series/70023522?v=1.5\end{lstlisting} \\
+LinkedIn &	URI &	\begin{lstlisting}http://api.linkedin.com/v1/people/~/connections\end{lstlisting} \\
+Foursquare	& URI	& \begin{lstlisting} https://api.foursquare.com/v2/venues/40a55d80f964a52020f31ee3?oauth_token=XXX&v=YYYYMMDD \end{lstlisting} \\
+Google data API (youtube/spreadsheets/others)	& URI parameter or custom header & \begin{lstlisting}"GData-Version: X.0" or "v=X.0" \end{lstlisting} \\
+Salesforce & URI with version introspection & \begin{lstlisting}
+{"label":"Winter '10"
+"version":"20.0",
+"url":"/services/data/v20.0",} 
+\end{lstlisting} \\
+PayPal &	parameter	& \&VERSION=XX.0 \\
+Drop Box	& URI &	\begin{lstlisting}https://api.dropbox.com/1/oauth/request_token \end{lstlisting}\\
+Youtube data API versioning &	URI	& \begin{lstlisting}https://www.googleapis.com/youtube/v3\end{lstlisting} \\
+\end{tabular}
+\end{center}
