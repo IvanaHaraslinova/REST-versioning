@@ -1,14 +1,10 @@
 \chapter{Version access}
 \label{chap:versionaccess}
 
-When the service interface is versioned the client has to know how to access requested version. There are more ways to implement this functionality. It has to be part of the agreement between client and server. Producer of service creates an access point for the new version and consumer has to modify his implementation according to agreed pattern to switch to this new version. 
-
-
-\section{Version identifiers}
-Version is typically identified by decimal number. The number is composed from a minor and a major number. Their increase can be based on the amount of work which have been done between two releases of versions or the compatibility regarding the two versions. This approaches can be combined.
+When the service interface is versioned the client has to know how to access requested version. When the service is versioned using new environment for every of new versions the accessibility question has easy answer. The version has still the same routing and to choose between versions there is needed to change the environment agains which the requests are called. When there is service interface versioning there exists more ways to implement accessibility. It has to be part of the agreement between client and server. Producer of service creates an access point for the new version and consumer has to modify his implementation according to agreed pattern to switch to the new version. 
 
 \section{Access approaches}
-Deployment of the versions can be performed different ways. There are two main approaches:
+Deployment of the versions can be performed different ways. There are two main approaches \cite{applied-soa}:
 \begin{enumerate}
   \item Version parameter
   \item Multiple endpoint addresses
@@ -16,14 +12,18 @@ Deployment of the versions can be performed different ways. There are two main a
 
 \subsection{Version parameter}
 Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of versioning is the implementation. Behind one service which is accessed by one URI there are possibly more implementations.
-To access a requested version of the implementation it's used version parameter. It is present in request message sent by consumer. Thanks to the parameter the request is routed to appropriate implementation version.
+To access a requested version of the implementation it's used version parameter or covenant. It is present in request message sent by consumer. Thanks to the parameter the request is routed to appropriate implementation version.
 
 This approach is advantage for consumers, release of new version has minimal impact on them. But on the other side it requires a special attention on version strategy, it can lead to collision of names, database names, ecc.
 
 \subsection{Multiple endpoint addresses}
-In this approach each service version is deployed independently and has its own endpoint address. This time consumer is obliged to know which service and implementation versions wants to access. When a customer wants to pass to newer version he needs to make changes in request addresses. The advantage of the approach is that the names collisions are eliminated by independent deployment of service versions. But the routing is more complex and requires addressing registry for resolving the addresses.
+In this approach each service version is deployed independently and has its own endpoint address. This time consumer is obliged to know which service and implementation versions wants to access. When a customer wants to pass to newer version he needs to make changes in request message. 
 
-/TODO zdroj Versioning in SOA, obrazky
+The advantage of the approach is elimination of the names collisions independent deployment of service versions. But the routing is more complex and requires addressing registry for resolving the endpoint addresses.
+
+The scheme provide better scalability because the service version is called directly and there is no need to pass through the mediator which resolve the selecting of a version. Morover, it reduce coupleing between the versions.
+
+/obrazky
 
 There are a lots of different theories and opinions about the right approach to implementation of the versioning. The most discussed are the URI versioning and versioning using the headers. Uri versioning represents a multiple endpoint addresses approach described above and version in headers represents the version parameter approach.
 
@@ -53,30 +53,34 @@ The link header can be used to define version of the service which should be use
 \texttt{link: <http://example.com/v2/orders/super-widget>; rel="alternate http://example.com/v2/rels/v2-equivalent"}
 
 %\subsection{Location}
+\subsection{Custom header}
+Provider of services can implement custom header to define version of the service which should be used. For exapmle \emph{Api-version}.
 
 \subsection{MIME Types}
+The version can be identified by Accept header. "The Accept request-header field can be used to specify certain media types which are acceptable for the response." \cite{website:w3}
 
 \texttt{GET /accounts/123 HTTP/1.1}
 
 \texttt{Accept: application/vnd.v2+json}
 
-
-Versioning strategies in popular REST APIs (http://www.lexicalscope.com/blog/2012/03/12/how-are-rest-apis-versioned/)
+\section{Versioning approach of popular REST APIs}
+Here is an exapmle of the versioning approaches which are used by well known web applications with REST API. \cite{website:restapi-example}
 \begin{center}
-\begin{tabular}{l l l}
-API NAME & VERSIONING &	EXAMPLE \\
+\begin{tabular}{lll}
+API NAME & VERSIONING &	EXAMPLE \\ \hline
+
 Twillo & date in URI \\
 Twitter &	URI \\
 Atlassian & URI \\
 Google Search	& URI	\\
-Github API	& URI/Media Type in v3 & Intention is to remove versioning in favour of hypermedia – \begin{lstlisting}current application/vnd.github.v3\end{lstlisting} \\
-Azure	& Custom Header	& \begin{lstlisting}x-ms-version: 2011-08-18\end{lstlisting} \\
-Facebook & URI/optional versioning	& \begin{lstlisting}graph.facebook.com/v1.0/me\end{lstlisting} \\
+Github API & URI/Media Type in v3 & \begin{tabular}[c]{@{}l@{}}Intention is to remove versioning in favour \\ of hypermedia – current application/vnd.github.v3\end{tabular} \\
+Azure	& Custom Header	& x-ms-version: 2011-08-18 \\
+Facebook & URI/optional versioning	& graph.facebook.com/v1.0/me \\
 Bing Maps &	URI	\\
-Netflix	& URI parameter	& \begin{lstlisting}http://api.netflix.com/catalog/titles/series/70023522?v=1.5\end{lstlisting} \\
-LinkedIn &	URI &	\begin{lstlisting}http://api.linkedin.com/v1/people/~/connections\end{lstlisting} \\
-Foursquare	& URI	& \begin{lstlisting} https://api.foursquare.com/v2/venues/40a55d80f964a52020f31ee3?oauth_token=XXX&v=YYYYMMDD \end{lstlisting} \\
-Google data API (youtube/spreadsheets/others)	& URI parameter or custom header & \begin{lstlisting}"GData-Version: X.0" or "v=X.0" \end{lstlisting} \\
+Netflix	& URI parameter	& http://api.netflix.com/catalog/titles/series/70023522?v=1.5 \\
+LinkedIn &	URI &	http://api.linkedin.com/v1/people/~/connections \\
+Foursquare	& URI	& https://api.foursquare.com/v2/venues/40a55d80f964a52020f31ee3?oauth \\
+\begin{tabular}{@{}l@{}}Google data API\\ (youtube/spreadsheets/\\ others)\end{tabular}	& \begin{tabular}[c]{@{}l@{}}URI parameter \\ or custom header\end{tabular} & "GData-Version: X.0" or "v=X.0" \\
 Salesforce & URI with version introspection & \begin{lstlisting}
 {"label":"Winter '10"
 "version":"20.0",
