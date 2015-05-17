@@ -132,7 +132,7 @@ The API is usually signed by an major identifier so that on an environment there
 The implementation of API is versioned using minor, path and revision identifiers. The implementation which is deployed on the server than can have a version for example \emph{1.0.0.0} or \emph{1.3.1.2}. The number insreases depending on what kind of changes was done on the implementation.
 
 \subsubsection{Deployment principles}
-The deployment goal is to deliver a quality product to the consumer. How to reach it is in responsibility of depoyment management and their strategy. The ideal state is when the deployment is simple and fast. To obtain this the changes deployed should be small and should happen often and the new version should be well tested before depoyment to production environment.
+The deployment goal is to deliver a high quality product to the consumer. How to reach it is in responsibility of depoyment management and their strategy. The ideal state is when the deployment is simple and fast. To obtain this the changes deployed should be small and should happen often and the new version should be well tested before depoyment to production environment.
 
 \subsubsection{Environments}
 To get the quality API it is quite necessary to have more than one environment running the same version of API. Every evnironment has it role and how many of them the producer use is one of the management decisions. At least there are two of them - development and production. Development environment is one with te latest version of API and production environment contains a stable version of API used by consumers.
@@ -176,7 +176,8 @@ There are more possibilities how to deploy the API on the environment. The examp
 \subsubsection{Access to versions}
 Consumers are always calling just one version of the API, the one which is deployed on the environment against with they are calling the services. They can swith she version of API only if they have the old version on one of the production streams, without changing the URL, just changing the environment. 
 
-\subsubsection{Disadvatages}
+\subsubsection{Advatages and disadvatages}
+Advantage of this approach is the access to the version. Consumers request sent to the server doesn't change except the integration changes concerning the new version service interface. He has accessible one expected version of API.
 From versioning of services part of view the main disadvatage of this approach is the incapability of easily repair inconveniences within the previus version of API. When the API is in versions up to \emph{v3} in development environment and in versions up to \emph{v2} in production environment. When an error is found in production in \emph{v1} this bug is probably supposed to be present also in later versions \emph{v2} and \emph{v3}. Then the bug has to be fixed in all three versions and redeploy them on servers which is not trivial operation.
 
 \bigskip
@@ -186,18 +187,9 @@ From versioning of services part of view the main disadvatage of this approach i
 
 Services offers another approach to versioning besides the explained above. There can be runing more than one version of the service API on the same time. This approach can be implemented using various principles. \emph{Service interface versioning} is the interpretation which will be further described and analysed. It brings different principles how to be accessed with their advantages and disadvantages which wil be explained in chapter \ref{chap:versionaccess}.
 
-This versioning approach allows to make changes to the API and release its new version without waiting for consumers to integrate the changes. All versions can run concurrently and be accessed by differend clients. When there are two coexistent versions of API, \emph{v1} and \emph{v2} consumer can have access to both of them. According to what he sent in the request he is directed to the correct version. Every of this version can be on the same environment or can be separated but this concept the consumer doesn't see.
-
-/TODO
+This versioning approach allows to make changes to the API and release its new version without waiting for consumers to integrate the changes. All versions can run concurrently and be accessed by clients. When there are two coexistent versions of API, \emph{v1} and \emph{v2} consumer can have access to both of them. According to what he sent in the request he is directed to the correct version. Every of this version can be on the same environment or can be separated but this concept the consumer doesn't see.
 
 %Each version has its own implementation and is distinguishably addressed.
-
-
-
-
-
-
-
 
 %Versioning management of services requires the proper definition of following concepts \cite{website:versioning-in-soa}:
 %what will be versioned and how, the life-cycle of the versions and the access to the version.
@@ -219,10 +211,9 @@ The service layer of an application developed by provider is an \emph{API} conta
 \label{fig:service-layer-design}
 \end{figure} 
 
-
 There are three possibilities of what can be versioned in service interface - versioning of \gls{api}, services contained in project or service methods. The relationship between this is shown in Figure \ref{fig:service-layer-design}. The granularity of versioning can be defined by the change which is the reason of creating of a new version. If the change happens just in changes it is possible to version just the method on the other hand when a set of services are changed the whole API should be versioned. These are not rules but the decision what to version should be originated in versioning strategy. The three options can be interchanged should be done carefully to don't complicate services architecture.
 
-Version is typically identified by decimal number. The number is typically just major digit for every of the version unit. For example the API can be inversion \emph{v2} and can contain a service with version \emph{v1} and \emph{v2}, this service versions can have a method of versions \emph{v1} and \emph{v2}.
+Version identified by number which is typically just major digit for each of the version unit. For example the API can be in version \emph{v2} and can contain a service with version \emph{v1} and \emph{v2}, this service versions can have a method of versions \emph{v1} and \emph{v2}.
 
 /obrazok
 
@@ -241,6 +232,17 @@ Other benefit of this versioning unit additing and removing of methods in a serv
   Version of changed method \emph{v1} increase in \emph{v2}, this method can be for example part of the service of \emph{v2} and API \emph{v1}.
 \end{description}
 
+\subsubsection{Logic of service versioning}
+There is a version od the API which is already used in production when there is a breaking change the implemention of new version of API is integrated with the old one. Both version can be deployed into production, it is not mandatory they are on the same environmnet. Consumer can continue to use the old version and after integrating the changes whenever he can switch the version. It is needed to be clear in advance where the version will be places and how will be accessed.
+Depending on the principle of accessing the version there can be said explicitly in endpoint address (URL) which version of API, service or method is called. The request is directly roated to requested version. The other approach to have the same endpoint address for each version of the versioned unit and the roating than pass through an intermedia which resolves the correct version, decision is based on one of the parameters send in request. Option of accessing the version will be described in Chapter \ref{chap:versionaccess}.
+
+\subsubsection{Environments}
+There are multiple ordered environment begining with the development and ending with production, same as in the implemetnation versioning (new version has always new environmnet) described above. The number and importance od environment is a question of development strategy. For example there can be developmnent environment, some test environments, staging and production environment. 
+
+\subsubsection{Advatages and disadvatages}
+The advantage is the version access at any time after deployment in production, the proces in not dependent on consumers integration. The other very significant advatnage is the fixing of failures, ???
+On customer site the disadvantage is the forcing to add the version identification in the requests, he has to change it everytime he change the version of API or its subunits. For provider it is needed to implement a logic of acceess different versions.
+/TODO
 
 
 
