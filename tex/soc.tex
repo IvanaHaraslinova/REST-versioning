@@ -10,6 +10,12 @@
 
 The architecture is layered. Layers can be multiple and can differ according to needs of designed system. One of the examples of horizontal layers is shown in Figure \ref{fig:soa-architecture}. The layers are separated and each of them encapsulates its implementation so that another layer can't access and modify it (preventing potential harms). In this example is an application containing services which have access to a database using an adapter. The \textit{\gls{adapter}} serves to transform data from database to data useful for services and vice-versa. \textit{Services} are entry point for consumer's application. They provide access to the data without direct access to \textit{database}.
 
+\begin{figure}[htp] \centering{
+\includegraphics[width=8cm]{img/soa-architecture.pdf}}
+\caption{Example of service-oriented architecture model}
+\label{fig:soa-architecture}
+\end{figure}  
+
 One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. \textit{"SOA is based on a decomposition of enterprise IT assets and separation of 'stable' IT artifacts (services) from 'changeable' artifacts (business processes), orchestrating services into IT solutions (processes)."} \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
 
 Above mentioned services are essential part of SOA. Relations between them and a business process constituted by services are visualized in Figure \ref{fig:business-process-services}. The business process is a process from the real world whose workflow is simulated by services. A single task of business process is composed by one or more of the services. Services perform the logic, comunicate with underlying layers to retrieve and store data to operate as a business process.
@@ -27,11 +33,41 @@ The speed of changes in the business is too fast to be passed directly into deve
 \gls{service-oriented-design} is composed from logic units - services. Every service is a standalone object or component. Every service has its own functional context and related capabilities. Each service is deployed independently on other ones and on the system which uses it. It allows a parallel development, one service can be a part of many products of a corporation.
 \textit{"The essence of Service in the SOA context is the business abstraction - that is a representation of functionality and/or data presented in business context."} \cite{agile-architecture}
 
+\subsection{Levels of a service} 
+\label{subsec:levels-of-service}
+
+It is not completely clear what a service represets. It was already mentioned it is an an abstraction of business process but after all analysis stage it is implemented and represented by code.
+In fact there are three levels of how the word \emph{Service} can be interpreted in SOA context \cite{agile-architecture}:
+\begin{enumerate}
+  \item \textbf{Service implementation} \hfill \\
+Service implementation is the code containing the logic.
+  \item \textbf{Service interface} \hfill \\ 
+This level is an entry point to the service implementation, it provides underlying logic to consumers but encapsulating it in a way that consumers can see the implementation. 
+  \item \textbf{Abstracted service} \hfill \\
+Abstracted service or business service represents a business capability or data. A composition of services describe a business process. This is a core abstraction of SOA.
+\end{enumerate}
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=10cm]{img/service-levels.pdf}}
+\caption{Relationship between service interpretations}
+\label{fig:service-levels}
+\end{figure}
+
+There is a many-to-many relationship between these three levels. As can be seen on Figure \ref{fig:service-levels} Business service can represents multiple interfaces and in the same time one interface can be supported by multiple implementation.
+
 \subsection{Service lifecycle}
 \label{subsec:lifecycle}
 The lifecycle of the services pass through several stages. Firstly the business which has to be abstracted by services is analysed. It is defined a set of services and compositions of services abstracting business processes. Than the services cen be designed, implemented and tested to work as expected. After that they are deployed and put into use of consumer. Deployed and consumed services are maintained by provider, moreover they are monitored. Monitoring helps to improvement of services. Finally services are versioned. A new version of a service can be implemented than the old one is retired.
 
-Service lifecycle stages \cite{soa-governance}:
+Diagram with the stages is shown in Figure \ref{fig:service-lifecycle}. Here is are the stages of service lifecycle as they are defined by Thomas Erl \cite{soa-governance}:
+
+\begin{figure}[htp] \centering{
+\includegraphics[width=10cm]{img/service-lifecycle.pdf}}
+\caption{Service lifecycle stages}
+\label{fig:service-lifecycle}
+\end{figure}
+
+
 \begin{enumerate}
   \item Service-oriented ananlysis \\
   During this phase the services candidates, their capabilities and compositions are created. The analysis is typically interative, for each business process a service inventory is created.
@@ -55,21 +91,7 @@ Service lifecycle stages \cite{soa-governance}:
   Retirement encompasses the termination of a service usage. Regarding service versioning a version of service which is no longer in use can be retired.
 \end{enumerate}
 
-\subsection{Levels of a service} 
-\label{subsec:levels-of-service}
 
-It is not completely clear what a service represets. It was already mentioned it is an an abstraction of business process but after all analysis stage it is implemented and represented by code.
-In fact there are three levels of how the word \emph{Service} can be interpreted in SOA context \cite{agile-architecture}:
-\begin{enumerate}
-  \item \textbf{Service implementation} \hfill \\
-Service implementation is the code containing the logic.
-  \item \textbf{Service interface} \hfill \\ 
-This level is an entry point to the service implementation, it provides underlying logic to consumers but encapsulating it in a way that consumers can see the implementation. 
-  \item \textbf{Abstracted service} \hfill \\
-Abstracted service or business service represents a business capability or data. A composition of services describe a business process. This is a core abstraction of SOA.
-\end{enumerate}
-
-There is a many-to-many relationship between these three levels. Business service can represents multiple interfaces and in the same time one interface can be supported by multiple implementation.
 
 %TODO picture of service levels
 
@@ -98,17 +120,6 @@ There is a many-to-many relationship between these three levels. Business servic
 
 %TODO image 
 
-\section{Web services}
-Web services are one group of services, these are intended to work on a network such as the Internet.
-
-/TODO write shortly about RCP, WSDL, SOAP
-%TODO form agile architecture revolution
- 
-\subsubsection{REST}
-%TODO WADL ??
-
-Representational State Transfer, REST is an architectural style for building distributed hypermedia applications. This thesis deals with REST architectural style and REST services. They will be described in detail within the next chapter. \ref{chap:rest}
-
 \section{Service granularity}
 \label{sec:granularity}
 In SOA context granularity is an often used expression. Granularity of an entity represents amount of data which is understood as one unit related to the whole data pool. It is possible to distinguish from fine-grained to coarse-grained granularity. Where fine-grained contains small amount of data in one unit respective to whole data pool. On the contrary the coarser granularity bears much more data in one unit.
@@ -117,14 +128,21 @@ Service granularity is defined during analytical part of the service design. Gra
 
 On the other side when services are coarse-grained they contain more complex logic and easily compose the process. However reusability is limited and more effort is required to implement them.
 
-The example of fine-grained and coarse-grained granularity can be shown on the business process of ordering a product.
+The example of fine-grained and coarse-grained granularity can be shown on a simple business process. An update user process is visualized on the Figure \ref{fig:granularity}.
 
-The coarse-grained service would contained more logic. It can be responsible for whole order. The service would execute the product selection, delivery address submittion, choice of delivery option and payment option. Having one service to order the product offer less interactions between client and server. However the service is less flexible because of fixed steps of ordering. If there was a need to add a one step into the ordering process the service would have to be changed.
+\begin{figure}[htp] \centering{
+\includegraphics[width=12cm]{img/granularity.pdf}}
+\caption{Coarse-grained and fine-grained serivces}
+\label{fig:granularity}
+\end{figure}
 
-On the other side the order process could be composed by fine-grained services. One service is responsible just for one of the actions. Order is than a composition of Products, Addresses, DeliveryOptions and PaymentsOptions services. The services are flexibly composed to perform the ordering process. If there was a need to add an additional step in the process there would be added a new service with this logic.
+The coarse-grained service containes more logic. One service is responsible for whole process. The service executes update of user's name, address and phone number by itself. Advantage is less interaction between client and server. However the service is less flexible because of fixed steps. If there is a need to add a one more step into the process the service will have to be changed.
+
+On the other side the process could be composed of fine-grained services. One service is responsible for less logic. Update process is than a composition of services UpdateName, UpdateAddress, UpdatePhoneNumber. In this case there is more interaction between client and server. There are three services called one by one. On the other hand services are flexibly composed and can be rearranged. If there is a need to add an additional step in the process there will be added a new service.
 
 
-
+\section{Web services}
+Web services are one group of services, these are intended to work on a network. They are components of \gls{web-applications}. Web services can be designed using different styles. The most popular nowadays is Representational State Transfer (REST) architectural style. This thesis deals with REST architectural style and REST services. They will be described in detail within the Chapter \ref{chap:rest}.
 
 
 %%\subsubsection*{\textbf{Guacamole} \hfill \emph{http://guac-dev.org/}}
