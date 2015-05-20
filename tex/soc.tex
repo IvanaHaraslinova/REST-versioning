@@ -57,7 +57,7 @@ There is a many-to-many relationship between these three levels. As can be seen 
 
 \subsection{Service lifecycle}
 \label{subsec:lifecycle}
-The lifecycle of the services pass through several stages. Firstly the business which has to be abstracted by services is analysed. It is defined a set of services and compositions of services abstracting business processes. Than the services cen be designed, implemented and tested to work as expected. After that they are deployed and put into use of consumer. Deployed and consumed services are maintained by provider, moreover they are monitored. Monitoring helps to improvement of services. Finally services are versioned. A new version of a service can be implemented than the old one is retired.
+The lifecycle of the services pass through several stages. Firstly the business which has to be abstracted by services is analyzed. It is defined a set of services and compositions of services abstracting business processes. Than the services cen be designed, implemented and tested to work as expected. After that they are deployed and put into use of consumer. Deployed and consumed services are maintained by provider, moreover they are monitored. Monitoring helps to improvement of services. Finally services are versioned. A new version of a service can be implemented than the old one is retired.
 
 Diagram with the stages is shown in Figure \ref{fig:service-lifecycle}. Here is are the stages of service lifecycle as they are defined by Thomas Erl \cite{soa-governance}:
 
@@ -120,7 +120,7 @@ Diagram with the stages is shown in Figure \ref{fig:service-lifecycle}. Here is 
 
 %TODO image 
 
-\section{Service granularity}
+\subsection{Service granularity}
 \label{sec:granularity}
 In SOA context granularity is an often used expression. Granularity of an entity represents amount of data which is understood as one unit related to the whole data pool. It is possible to distinguish from fine-grained to coarse-grained granularity. Where fine-grained contains small amount of data in one unit respective to whole data pool. On the contrary the coarser granularity bears much more data in one unit.
 
@@ -141,7 +141,7 @@ The coarse-grained service containes more logic. One service is responsible for 
 On the other side the process could be composed of fine-grained services. One service is responsible for less logic. Update process is than a composition of services UpdateName, UpdateAddress, UpdatePhoneNumber. In this case there is more interaction between client and server. There are three services called one by one. On the other hand services are flexibly composed and can be rearranged. If there is a need to add an additional step in the process there will be added a new service.
 
 
-\section{Web services}
+\subsection{Web services}
 Web services are one group of services, these are intended to work on a network. They are components of \gls{web-applications}. Web services can be designed using different styles. The most popular nowadays is Representational State Transfer (REST) architectural style. This thesis deals with REST architectural style and REST services. They will be described in detail within the Chapter \ref{chap:rest}.
 
 

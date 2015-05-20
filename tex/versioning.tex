@@ -63,7 +63,7 @@ Changes of the implementation lead to the versioning of the code. Compatible cha
 \subsubsection{Versioning of service interface}
 As mentioned service interface is an entry point for consumers to work with the services. Interface can be versioned as well and its change has impact on the consumer application. Compatible changes of the interface are for example addition of an action on the other side non compatible change is removal of an operation. When a new action is added no one is using it and it is optional if somebody would make use of it. When an action is removed, consumers which have used it are broken.
 
-\emph{Service interface versioning} is the interpretation which will be further described and analysed. It brings various approaches with their advantaes and disadvantages. The versioning of services is quite young topic and there are still very vibrant discussions about the best approach.
+\emph{Service interface versioning} is the interpretation which will be further described and analyzed. It brings various approaches with their advantaes and disadvantages. The versioning of services is quite young topic and there are still very vibrant discussions about the best approach.
 
 \subsubsection{Versioning of business service}
 Sometimes it is needed to change the business service. It means the business which is abstracted have to be changed. For example because of new requirements due to legislative a business service needs modifications, if this kind of change affects behaviour, semantic or functionality modification of existing service it is easier to create a new service rather than a version. 
@@ -118,7 +118,7 @@ The whole-service versioning provides less flexibility.
 \section{Versioning approaches}
 \label{sec:versioning-approaches}
 
-The service interface can be versioned in more ways. One of the approaches can be deployment of new version to new environment. This approach is widely used for code versioning not only for services. This is how the service implementation is versioned. Regarding service interface it is possible to create new version and deploy it on the same environment as the older one. This is specific approach for sevice interface versioning. Then there is a question how consumer can access the requested version of the service. The possibilities of access them is analysed in chapter \ref{chap:versionaccess}.
+The service interface can be versioned in more ways. One of the approaches can be deployment of new version to new environment. This approach is widely used for code versioning not only for services. This is how the service implementation is versioned. Regarding service interface it is possible to create new version and deploy it on the same environment as the older one. This is specific approach for sevice interface versioning. Then there is a question how consumer can access the requested version of the service. The possibilities of access them is analyzed in chapter \ref{chap:versionaccess}.
 
 
 \subsection{New version - new environment approach}
@@ -185,7 +185,7 @@ From versioning of services part of view the main disadvatage of this approach i
 
 \subsection{Service interface versioning approach}
 
-Services offers another approach to versioning besides the explained above. There can be runing more than one version of the service API on the same time. This approach can be implemented using various principles. \emph{Service interface versioning} is the interpretation which will be further described and analysed. It brings different principles how to be accessed with their advantages and disadvantages which wil be explained in chapter \ref{chap:versionaccess}.
+Services offers another approach to versioning besides the explained above. There can be runing more than one version of the service API on the same time. This approach can be implemented using various principles. \emph{Service interface versioning} is the interpretation which will be further described and analyzed. It brings different principles how to be accessed with their advantages and disadvantages which wil be explained in chapter \ref{chap:versionaccess}.
 
 This versioning approach allows to make changes to the API and release its new version without waiting for consumers to integrate the changes. All versions can run concurrently and be accessed by clients. When there are two coexistent versions of API, \emph{v1} and \emph{v2} consumer can have access to both of them. According to what he sent in the request he is directed to the correct version. Every of this version can be on the same environment or can be separated but this concept the consumer doesn't see.
 
