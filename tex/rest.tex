@@ -197,7 +197,7 @@ Resources are manipulated exclusively through the representations. The represent
 
 %Sent message represents a clients request or a servers response and it is self-descriptive. It means there is enough information to know how to process the message and the response explicitly defines the cashability.
 
-The representation is sent in a request using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI. Server sends to the client a HTTP response. Their format is shown in Figure \ref{fig:http}.
+The representation is sent in a request using HTTP verbs (GET, POST, PUT, DELETE,..) and the URI. Server sends to the client a HTTP response. For illustration a simplified HTTP request and response format is shown in Figure \ref{fig:http}.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=12cm]{img/HTTP.pdf}}
@@ -292,4 +292,3 @@ The request and response than look like:
 
 
 In case the service from the example above is already released and used by client a change can be done. The need of changes like this one is seriously affecting server and client and it is necessary the change is implemented by both of them. How to handle them is a main topic of this thesis and will be explained and analyzed in the rest of this work.
-
