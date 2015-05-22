@@ -54,10 +54,10 @@ The address example suggests that the API is in version \emph{v2} and call the a
 
 \subsection{Versioning based on headers}
 
-There are several different options to use the headers to identify the version of services which consumer wants to call. Common feature is unchaging URL address. Headers are part of the HTTP requests and it can be used the existing one or can be created a custom header. The existing header is Accept header which defines the media type of request. Creating a custom header offers the creation of header with arbitrary name in which is listed the version. To the header content is aded the version parameter which ensure the access to the concrete version of API.
+There are several different options to use the headers to identify the version of services which consumer wants to call. Common feature is unchaging URL address. Headers are part of the HTTP requests and it can be used the existing one or can be created a custom header. The existing header is Accept header which indicates the media types of request. Creating a custom header offers the creation of header with arbitrary name in which is listed the version. To the header content is aded the version parameter which ensure the access to the concrete version of API.
 
 \subsubsection{Accept header}
-The version can be identified by Accept header. "The Accept request-header field can be used to specify certain media types which are acceptable for the response." \cite{website:w3} Accept haeder contains \gls{mime-types} which are typically in \gls{xml} or \gls{json} format. Than the request can look like:
+The version can be identified by Accept header. "The Accept request-header field can be used to specify certain media types which are acceptable for the response." \cite{website:w3} Accept haeder contains \gls{mime-types} which are typically in \gls{xml} or \gls{json} format. It can specify the limited subset of accepted media types. Than the request can look like:
 
 \begin{lstlisting}
     {GET /accounts/123 HTTP/1.1}

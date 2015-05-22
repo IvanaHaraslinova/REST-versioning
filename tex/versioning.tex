@@ -1,44 +1,65 @@
 \chapter{Versioning}
 \label{chap:versioning}
 
-Versioning determines creation of releases of a product and its management. The product is what provider offers to consumer. A new version of product is created when a modification is needed. Consumers can use the same product but they can use its different version. The version could have been released because of new requirements or due to improvements of functionality. 
+Versioning determines creation and management of product versions. The product is what a provider offers to a consumer. A new version of a product can be created when a modification is needed. Consumers can use the same product but they can use its different version. Version can be created to fulfill requirements or due to improvements of functionality. 
 
-Any of new versions of the product mustn't influence the execution of consumers code. When the product is customized, a change has to be compatible with all consumers. In case the change is incompatible, it is needed to release a new version. Before a consumer switches the new version an agreement between provider and consumer has to be established. The consumer has to do required changes within his functionality deriving from the new agreement.
+Any of new versions of the product mustn't influence the execution of consumers code. When the product is customized, a change has to be compatible with all consumers. In case the change is incompatible, it is needed to produce a new version. Before a consumer switches to the new version, an agreement between provider and consumer has to be established. The consumer than has to do required changes within his functionality.
 
-A change which leads to necessity of modification on consumer side can be a new requirement from one of the consumers, the new version is released and the consumer can immediately switch to use it. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
+A change which leads to necessity of modification on consumer side can be a new requirement from one of the consumers. In this case the particular customer can switch to the new version. Other consumers can follow their schedule and switch to the newest version when it is suitable for them. 
 
-In service oriented architecture the product are services as they are descibed in section \ref{sec:services}. Provider is one who provide services, server. Consumer is one who use services, client.
+In service oriented architecture the services as they are descibed in section \ref{sec:services} are the product. Provider is the one who provide services - server. Consumer is the one who use services - client.
 
 \section{Version compatibility}
 \label{sec:v-compat}
-There are two forms of versioning concerning compatibility. \cite{website:service-versioning}
+The changes which can be done within the services can have different impact on consumers. One type does not require changes on client side the other one on the contrary does. Following changes done on the server side there are two forms compatibility of two service versions. \cite{website:service-versioning}
 \begin{description}
   \item[Compatible changes] \hfill \\
-  Compatible changes are that changes of product which do not harm any consumer. Compatible changes are for example implementation bug fixes or change in number of parameters in interface to support an implementation modification.
+  Compatible changes are that changes of product which do not affect any existin consumer functionality. Compatible changes are for example implementation bug fixes or additions of parameters in interface to support an implementation modification.
   \begin{enumerate}
     \item[Backward compatible] \hfill \\ 
-  When a new version of a service is deployed the consumer of an earlier version must be capable to interoperate with the new version without any modification of his application. If a service is backward compatible it is compatible with older version of itself. Backward compatible change can be an addition of a new resource or a new capability to the resource. \hfill \\ 
+  When a new version of a service is deployed the consumer of an earlier version must be able to interoperate with the new version without any modification of his application. If a service update, is backward compatible it is compatible with older version of itself. Backward compatible change can be an addition of a new resource or a new capability to the resource. \hfill \\ 
   Example: \hfill \\ 
-  Service has capability \hfill \\ 
+  Service has action \hfill \\ 
   \begin{lstlisting}
   GET   /customers/{customerId}
   \end{lstlisting}
-  and we add a new capability to get only the name of a customer with assigned id
+  and we add a new action to get only the name of a customer with assigned id
   \begin{lstlisting}
   GET   /customers/{customerId}/name
   \end{lstlisting}
 
-  This addition doesn't harm any consumer of the service, because they can continue to use every capability which has been already integrated in their systems. Every capability is still a part of the new version of the service. 
+  This addition doesn't harm any consumer of the service, because they can continue to use every capability which has been already integrated in their systems. They are is still a part of the new version of the service. 
   
   \item[Forward compatible] \hfill \\
-  The service version is forward compatible when it is designed in a way it can support future modifications. The newer version of service can be deployed without influence on its usability by consumers. 
+  The service version is forward compatible when it is designed in a way it can support future modifications. It is hard to achieve the forward compatibility because its about unkown future changes which can be done. Services should be designed in a way that thay can be modified.
   \end{enumerate}
   
   \item[Incompatible changes] \hfill \\
-  Incompatible changes are breaking changes which affect consumers of services. An example is removal of an action or change of types or order of parameters of an action.
+  Incompatible changes are breaking changes which affect consumers of services. Breaking changes can be performed by adding or removing an enumeration, removing or renaming a global type or element, changing the optionality of an element from optional to required.
   \begin{enumerate} 
     \item[Backward incompatible changes]  \hfill \\
-    Backward incompatible changes are changes which break the consumers using an earlier version of service. It means that the new version is no longer backward compatible and do not interpret the data of its earlier version.
+    Backward incompatible changes are changes which break the consumers using an earlier version of service. It means that the new version is no longer compatible with erlier version of itself. It cannot interpret the data of its earlier version or interprets them in wrong manner.
+    
+    As an example there is a service \emph{customer}. Operation POST stores a new customer. The request contains a customer representation in json format: 
+    
+\begin{lstlisting}
+    POST   /customers
+    Content-Type: application/json
+    
+    {
+    "Name": "Peter",
+    "Surrname": "Sun",
+    "DateOfBirth": "20 May 1978",
+    "Address": {
+        "Line1": "Road 23",
+        "Line2": "London",
+        "PostalCode": "AA0000A"
+        }
+    }
+\end{lstlisting}
+
+If the element \emph{DateOfBirth} is removed it will be a breaking change. The clients would send requests containing the DateOfBirth element which wouldn't be processable. To use the new version of customers service client have to integrate the changes. 
+
     \item[Forward incompatible changes] \hfill \\
     These changes break the forward compatibility of the service. It means that a future version won't be compatible with existing one, any modifications of current version don't preserve compatibility.
   \end{enumerate}
@@ -46,52 +67,51 @@ There are two forms of versioning concerning compatibility. \cite{website:servic
 
 \section{Versioning of services}
 \label{sec:verioningservices}
-Thanks to versioning services can be evolved and customized. When a breaking change of a service occurs the new version can be created so that existing consumers of services are not affected. Release of a new version doesn't harm the previous one, all versions can coexist and be used at the same time. 
+Thanks to the versioning services can evolve and can be customized. When a breaking change of a service is implemented the new version can be created so that existing consumers of services are not affected. Release of a new version doesn't remove the previous one. Multiple versions can coexist and can be used at the same time. 
 
 \subsection{Versioning on different levels of a service}
-As there are three levels of interpretation of a \emph{service} as was already described in section \ref{subsec:levels-of-service}. A change and consequent creating of a new version can occur within each of this levels - business abstraction, service interface and service implementation.
+There are three levels of interpretation of a \emph{service} as was already described in section \ref{subsec:levels-of-service}. A change and consequent creating of a new version can occur within each of this levels - service implementation, service interface and business abstraction.
 
 \subsubsection{Versioning of service implementation}
-The implementation of a service can be changed. The new version of service is backward compatible or backward incompatible. The backward compatible modification in this level is simple bug fix, the incompatible changes are changes which affect the interface of the service.
+The implementation of a service can be changed. The new version of service can be either backward compatible or backward incompatible. The implementation is encapsulated bellow the interface and is not visible for outer world. It can be modified without affecting clients. The backward compatible changes in this level can be a simple bug fix. The incompatible changes are modifications which influence the service calls responses.
 
-The implementation is encapsulated under the interface and it is not visible for outer world. Despite this the implementation cannot be replaced without affecting the whole service. A provider of service has a contract including \gls{sla} with a service consumer. The contract has to be followed because it is valid document on which the consumer relies. 
+Every change which has to be done in the implementation of a service needs to be validated against the contract. When the implementation which is going to be replaced is a breaking change from the point of view of the consumer, agreement with the change of contract is needed. Consequently, new version has to be released.
 
-Every change which has to be done in the implementation of the service needs to be validated against the contract. When the implementation which is going to be replaced is the breaking change from the point of view of the consumer the agreement with the change of contract is needed and consequently the new version has to be released.
-
-Changes of the implementation lead to the versioning of the code. Compatible changes can be done without necessity of new version, but they should be versioned after specific amount of changes (this amount should be specified as a part of versioning strategy) for proper change management. In case of a breaking change, the code has to be versioned.
+Changes of the implementation lead to the versioning of the code. Compatible changes can be done without a new version, but they should be versioned after specific amount of changes (this amount should be specified as a part of versioning strategy) for proper change management. In case of a breaking change, code has to be versioned.
 
 \subsubsection{Versioning of service interface}
-As mentioned service interface is an entry point for consumers to work with the services. Interface can be versioned as well and its change has impact on the consumer application. Compatible changes of the interface are for example addition of an action on the other side non compatible change is removal of an operation. When a new action is added no one is using it and it is optional if somebody would make use of it. When an action is removed, consumers which have used it are broken.
-
-\emph{Service interface versioning} is the interpretation which will be further described and analyzed. It brings various approaches with their advantaes and disadvantages. The versioning of services is quite young topic and there are still very vibrant discussions about the best approach.
+Service interface is an entry point for consumers to work with the services. Interface can be versioned as well and its change impacts the consumer application. Compatible change of the interface is an addition of an action. On the other side non compatible change is a removal of an action. When a new action is added, no one is using it and it is optional if somebody would make use of it. When an action is removed, consumers which are using it are negatively affected and their implementation can be broken.
 
 \subsubsection{Versioning of business service}
-Sometimes it is needed to change the business service. It means the business which is abstracted have to be changed. For example because of new requirements due to legislative a business service needs modifications, if this kind of change affects behaviour, semantic or functionality modification of existing service it is easier to create a new service rather than a version. 
+Sometimes it is needed to change the business service. It means the business which is abstracted have to be changed. For example because of new requirements due to legislative a business service needs modifications. If this kind of change affects behaviour, semantic or functionality of existing service, it is easier to create a new service rather than a new version. 
+
+\subsubsection{Conclusion}
+\emph{Service interface versioning} is the interpretation which will be further described and analyzed. It brings various approaches with their advantages and disadvantages. The versioning of services is quite young topic and there are still very vibrant discussions about the best approach.
 
 \section{Versioning strategy}
 \label{sec:version-strategy}
-There is a need to specify a set of rules to version services consistently. This rules form the versioning strategy. They are related to release of a new version of services or number of services which should be active at the same time. The rules are the matter of SOA governance. There isn't single correct way to govern the service versioning. Defined strategies should be followed and practiced during whole service lifecycle \cite{soa-governance}:
+There is a need to specify a set of rules to version services consistently. Those rules form the versioning strategy. They are related to new service version release and access or number of accessible version at the same time. The rules are the matter of SOA governance. There isn't single correct way to govern the service versioning. Defined strategies should be followed and practiced during whole service lifecycle \cite{soa-governance}:
 
 \begin{description}
   \item[Strict]  \hfill \\
-  Any change of a service results in a new version. This strategy does not support backward or forward compatibility.
+  Any change of a service results in a new version. This strategy does not support backward or forward compatibility because every modification results in a new version. This approach is the safest one and can be in place when there is a sensitive data exchange between two organizations. Consumer organization have a control over the services evolution. If any change is done the service version increases and client has to integrate it. 
   \item[Flexible] \hfill \\
-  Any incompatible changes result in a new version and the service design supports backward compatibility.
+  Any incompatible changes result in a new version and the service design supports backward compatibility. This is common approach. Changes which are backward compatible modify the sevice interface without affecting the service version. They are considered safe and do not impact any client.
   \item[Loose] \hfill \\
-  Any incompatible changes result in a new version and the service design supports backward and forward compatibility.
+  Any incompatible changes result in a new version and the service design supports backward and forward compatibility. The strategy is similar to Flexible one. Incompatible canges results in a new version. The differenc is in supporting this designed so that it e forwrd compatible changes. Service interface is designed so that the future changes can be added without a breaking change.
 \end{description}
 
 The strategy needs to be determined during the analysis stage of application lifecycle. It includes more decisions regarding versioning which have to be done before the service implementation such as version identification by digits or version lifecycle.
 
 \subsection{Version identifiers}
 \label{subsec:versionid}
-Identification of the version is one of the fundamental design patterns. Version is indicated by decimals separated by periods. The version number length and common meaning of the digits should be established as a part of the versioning strategy. Every digit increments releatively to significance of the change. It is usually composed from two to four digits X.Y.Z.R.
+Version Identification is one of the fundamental \gls{design-patterns}. Version is indicated by decimals separated by periods. The version number length and meaning of the digits should be established as a part of the versioning strategy. Every digit increments accordingly to significance of the change. Full version number is usually composed from two to four digits X.Y.Z.R.
 
 Explanation of the digits \cite{soa-governance}:
 
 \begin{enumerate}
   \item[Major changes X] \hfill \\
-  Major changes are non-backward compatible changes, after a major change the new document schema is no longer compatible with the old one. These changes break the usage of the service by the consumer. They are imposed to the new version and consumers need to adjust their programs to switch to this version. Breaking changes can be performed by adding or removing an enumeration, removing or renaming a global type or element, changing the optionality of an element from optional to required.
+  Major changes are non-backward compatible changes. After a major change, new service interface is no longer compatible with the old one. These changes break the usage of the service by the consumer. They are imposed to the new version and consumers need to adjust their programs to switch to this version. 
   
     \item[Minor changes Y] \hfill \\
   Minor changes are backward-compatible changes. The changes do not impact consumers, the new version continue to support the consumers working with the old version. Examples can be new optional element to existing type, a change of optionality of a local element from required or optional, adding global type or global element, etc.
@@ -103,39 +123,43 @@ Explanation of the digits \cite{soa-governance}:
   Revisions are changes without semantic content, for example formatting, comments, etc. They do not affect the functionality of the service and service consumers.
 \end{enumerate} 
 
-Using version identifiers to express the compatibility by incrementing major and minor numbers serve to compatibility guarantee. There is another approach to indicate the version of services related to amount of work. The number increment according to effort which have been dedicated to the change. The big effort increments the major number and modest effort the minor number. This two approaches can be combined and in most cases they are, preserving mainly the compatibility guarantee and less often communicating the effort made. \cite{soa-governance}
+Using version identifiers to express the compatibility by incrementing major and minor numbers serves to guarantee compatibility. There is another approach to indicate the version of services related to amount of work. The number increment according to effort which have been dedicated to the change. The big effort increments the major number and modest effort the minor number. This two approaches can be combined and in most cases they are, preserving mainly the compatibility guarantee and less often communicating the effort made. \cite{soa-governance}
 
 
 \subsection{Service version life-cycle}
-Service life-cycle defines the time period in which a version should be maintained. When the time is short, customers have not enough time for their upgrades required in order to switch on new verion. On the other hand when the period is too long, too many versions of service have to be maintained. The suitable time span is a result of consideration of individual organization with respect to their capability to deal with changes.
+Service life-cycle defines the time period in which a version should be maintained. When the time is short, customers don't have enough time for their upgrades required in order to switch to the new verion. On the other hand when the period is too long, too many versions of service have to be maintained. The suitable time span is a result of consideration of each individual organization with respect to their capability to deal with changes.
 
-Product version should be always compatible with consumers usage. When a new version of the service method is released, it is needed to have the old one present in the implementation if any of the consumers operate with it. When the service method is going to be replaced by new one, it has to be held so that do not impact any consumer. It can be signed as deprecated, which do not influence its usage from the point of view of the consumer, but it means that provider waits that all consumers switch to the new implementation. When the deprecated method stops to be used, it can be safely removed. 
+Product version should be always compatible with consumers usage. When a new version of the service method is released, it is needed to have the old one present in the implementation. If any of the consumers use it. When the service method is going to be replaced by new one, it has to be held not to impact any consumer. It can be signed as deprecated, which doesn't influence its usage from the point of view of the consumer. But means that provider waits until all consumers switch to the new implementation. When the deprecated method is no longer used, it can be safely removed. 
 
-This lifecycle is possible only when the service method versioning approach is implemented, in case of whole-service versioning, when the service is given into state deprecated, it is equivalent to its remove, it is needed the new agreement between the provider and consumer so that consumer have to implement changes to use the new service. %or just keep using the older version. 
+This lifecycle is possible only when the service method versioning approach is implemented, in case of whole-service versioning, when the service is given into state deprecated, it is equivalent to its removal. New agreement between the provider and consumer is needed, so that consumer have to implement changes to use the new service. %or just keep using the older version. 
 The whole-service versioning provides less flexibility.
 
 
 \section{Versioning approaches}
 \label{sec:versioning-approaches}
 
-The service interface can be versioned in more ways. One of the approaches can be deployment of new version to new environment. This approach is widely used for code versioning not only for services. This is how the service implementation is versioned. Regarding service interface it is possible to create new version and deploy it on the same environment as the older one. This is specific approach for sevice interface versioning. Then there is a question how consumer can access the requested version of the service. The possibilities of access them is analyzed in chapter \ref{chap:versionaccess}.
+The service interface can be versioned in multiple ways. One of the approaches is deployment of new version to new environment. This approach is widely used for code versioning not only for services. Regarding service interface it is possible to create new version and deploy it on the same environment as the previous one. This is specific approach for sevice interface versioning. Then there is a question how consumer can access the requested version of the service. The possibilities of access them is analyzed in chapter \ref{chap:versionaccess}.
 
 
 \subsection{New version - new environment approach}
 
-The versioning is based on deployment of new version of \gls{api} on a new environment. The deployment process is identical to software deployment. Service changes are deployed on a new environment incrementing the API version number.
+The versioning is based on deploying a new version of \gls{api} to a new environment. The deployment process is identical to software deployment. Service changes are deployed on a new environment. %incrementing the API version number.
 
 \subsubsection{Deploying of changes}
-When in an API with version \emph{v1} a change is done the implementation version number is incrementing in minor digit. From the definition in section \ref{subsec:versionid} is obvious that this is backward compatible change. The implemantation than gains for expamle identifier \emph{1.1} The services do not change their interface and their consumers are not harmed. 
-When there were a breaking change in services or there is specified number of changes or amount of work done the whole API is released on a new environment. The API version increase in major identifier to \emph{v2} because non-backward changes were done. Consumers of services needs to do required chages to use newer version of services. Than they call services using new environment. 
-The API is usually signed by an major identifier so that on an environment there can be deployed \emph{API v1} or\emph{API v2} and so on.
-The implementation of API is versioned using minor, path and revision identifiers. The implementation which is deployed on the server than can have a version for example \emph{1.0.0.0} or \emph{1.3.1.2}. The number insreases depending on what kind of changes was done on the implementation.
+When in an API with version \emph{v1} a change is done, implementation version number is incremented in minor digit. From the definition in section \ref{subsec:versionid}, it is obvious that this is backward compatible change. The implemantation than gains for expamle identifier \emph{1.1}. The services do not change their interface and their consumers are not affected. 
+When there is a breaking change in the services or there is a specified number of changes or amount of work done, API is released to a new environment. 
+
+The API version increase in major identifier to \emph{v2} because non-backward changes were done. Consumers of services need to do required chages to use newer version of services. Than they call services using new environment. 
+The API is usually marked by a major identifier so that \emph{API v1} or\emph{API v2} and so on can be deployed.
+The implementation of API is versioned using minor, path and revision identifiers. 
+
+The implementation which is deployed on the server than can have a version for example \emph{1.0.0.0} or \emph{1.3.1.2}. The number increases depending on what kind of changes was done on the implementation.
 
 \subsubsection{Deployment principles}
-The deployment goal is to deliver a high quality product to the consumer. How to reach it is in responsibility of depoyment management and their strategy. The ideal state is when the deployment is simple and fast. To obtain this the changes deployed should be small and should happen often and the new version should be well tested before depoyment to production environment.
+The deployment goal is to deliver a high quality product to the consumer. How to reach it is responsibility of depoyment management and their strategy. The ideal state is when the deployment is simple and fast. To obtain this the changes deployed should be small and should happen often and the new version should be well tested before depoyment to production environment.
 
 \subsubsection{Environments}
-To get the quality API it is quite necessary to have more than one environment running the same version of API. Every evnironment has it role and how many of them the producer use is one of the management decisions. At least there are two of them - development and production. Development environment is one with te latest version of API and production environment contains a stable version of API used by consumers.
+To get a good quality API, it is quite necessary to have more than one environment running the same version of API. Every environment has its role and how many of them the producer use is one of the management decisions. At least there are two of them - development and production. Development environment is one with te latest version of API and production environment contains a stable version of API used by consumers.
 Better solution is to have more than just this two environmnets. There should be at least one environment dedicated to testing and one environmnet can hold a stable version version of API from which runs the releases to production environment. The last one is generally named as staging environment. It simulates the production environment so that provide to producer test environment of real running of the API discovering system failures before the main release to the production.
 
 One environmnet hold just one version of API. If another version is needed to be available it has to be deployed on another server. Then customers are using different servers, as shown on the image \ref{fig:consumer-server}

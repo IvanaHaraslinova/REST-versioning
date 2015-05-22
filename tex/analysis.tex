@@ -45,7 +45,7 @@ The versioning strategy of Invest s.r.o is based on avoiding the breaking change
 The company is versioning whole srvice API. The approach to versioning is the one which is used to version softvares in general. When a new version is created and deployed to production environment the old version is no longer accessible. The version paremeter in URL is informative. It can suggest to clients that they have to call requests according to \gls{documentation} of this API version.
 
 \subsection{Service interface changes}
-When it is needed to change a service interface the company tries to not affect any of its clients. For example after a change in implementation of service one of the attributes of representation doesn't hold enough information anymore. There is a need to encapsulate this attribute into another one. Let's have bank account. The original representation in request is:
+When it is needed to change a service interface the company tries to not affect any of its clients. For example after a change in implementation of service one of the elements of representation doesn't hold enough information anymore. There is a need to encapsulate this element into another one. Let's have bank account. The original representation in request is:
 
 \begin{lstlisting}
   <?xml version="1.0"?>
@@ -57,7 +57,7 @@ When it is needed to change a service interface the company tries to not affect 
   </BankAccount>
 \end{lstlisting}
 
-After a change of the requirements there is a need to have \emph{BankAddress} attribute in representation. \emph{BankAddress} and \emph{BankName} will be encapsulated into the node \emph{bankDetails}. The new request than should look like:
+After a change of the requirements there is a need to have \emph{BankAddress} element in representation. \emph{BankAddress} and \emph{BankName} will be encapsulated into the node \emph{bankDetails}. The new request than should look like:
 
 \begin{lstlisting}
   <?xml version="1.0"?>
@@ -76,34 +76,34 @@ After a change of the requirements there is a need to have \emph{BankAddress} at
   </BankAccount>
 \end{lstlisting}
 
-If the change will be deployed it will harm the usability of application for each client who expect the old version. It is a breaking change which would force all clients to integrate this change or the provider to create a new version of a service. The Invest s.r.o. solve this by adding a new attribut with the encapsulation. At the same time the old attribute is left in the representation and is signed as obsolete.
+If the change will be deployed it will harm the usability of application for each client who expect the old version. It is a breaking change which would force all clients to integrate this change or the provider to create a new version of a service. The Invest s.r.o. solves this by adding a new element with the encapsulation. At the same time the old element is left in the representation and is signed as obsolete.
 
 \begin{lstlisting}
   <?xml version="1.0"?>
   <BankAccount>
     <BankAccountId>1</BankAccountId>
-    <BankAccountNumber>12345678</BankAccountNumber>
-    <BankName>InvestBank</BankName>
+    <BankAccountNumber>sample string</BankAccountNumber>
+    <BankName>sample string</BankName>                      (obsolete element)
     <BankDetails>
-      <BankName>InvestBank</BankName>
+      <BankName>sample string</BankName>
       <BankAddress>
-        <Line1>Road 12</Line1>
-        <Line2>London</Line2>
-        <PostCode>AA0000A</PostCode>
+        <Line1>sample string</Line1>
+        <Line2>sample string</Line2>
+        <PostCode>sample string</PostCode>
       </BankAddress>
     </BankDetails>
-    <BankAccountName>MyBankAccount</BankAccountName>
+    <BankAccountName>sample string</BankAccountName>
   </BankAccount>
 \end{lstlisting}
 
-Both attributes has to be optional because clients make calls just with one of them. In service implementation the code for both kind of calls has to be present. This way the API is becoming big and has many code to maintainance. 
+Both elements have to be optional because clients make calls just with one of them. In service implementation the code for both kind of calls has to be present. This way the API is becoming big and has many code to maintainance. 
 
-At some point it occurs than there will be new version if API. All the duplications within a represenation and the code are removed. The version of API is increased and it is created a new service documentation.
-
-This approach is offering enough time to clients to integrate the changes. 
+At some point it occurs than there will be new version if API. All the duplications within a represenation and the code are removed. The version of API is increased and it is created a new service documentation. Duration of one lifecycle of the API version is than in a range of years. 
 
 
+Versioning technique used by Invest s.r.o. is versioning on the level of service implementation. Every change which is done is made in code. There is just one version on API available for consumers. It is the one deployed on production environment. When a cutomer ask for a change it is designed to be backward-compatible.
 
+In my opininion this approach is sufficient. It is offering enough time to clients to integrate the changes. 
 
 
 
