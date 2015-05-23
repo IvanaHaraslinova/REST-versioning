@@ -224,7 +224,7 @@ There are more possibilities how to deploy the API to an environment. The whole 
   \item{File copy method} \hfill \\
   The API image is copied to a new environment manually. This method is network based and provide diminution of distribution time and assistance in updates. On the other hand there can be problems with accessing the files on network and other with determining the reason of possible system fails. 
   \item{Continuous integration method} \hfill \\
-  The \gls{SCM} (SCM) to assist the distribution of the system. SCM server contains the master version of the API, developers work with its local version and after making some changes they push them to the server. Having the most recent version depends just on simple update from SCM server to get the last revision (what is revision was explained in Section \ref{subsec:versionid}). The SCM tool has a history of changes within a files. Developers can see every change done on the file from its creation to its newest version. When a change causes a failure of function of software, it can be reverted.
+  The \gls{scm} (SCM) to assist the distribution of the system. SCM server contains the master version of the API, developers work with its local version and after making some changes they push them to the server. Having the most recent version depends just on simple update from SCM server to get the last revision (what is revision was explained in Section \ref{subsec:versionid}). The SCM tool has a history of changes within a files. Developers can see every change done on the file from its creation to its newest version. When a change causes a failure of function of software, it can be reverted.
   
   With the SCM is connected a practice called Continuous Integration (CI). When someone push a change of a file to the SCM, the continuous integration ensures the build process and testing of whole project. The new change is integrated into the implemenation. If the CI build or tests fails it is possible to see which file caused the failure. 
   Result of the build process is a \ref{dll} file. This file is deployed to environments. Whole process is shown on Figure \ref{fig:deployment-process}.
@@ -347,5 +347,4 @@ On customer site the disadvantage is the forcing to add the version identificati
 
 %\section{Versioning service implementation}
 %Besides versioning the service interface, it is possible to consider an implementation. The underlying implementation can changed without affecting the interface itself. 
-
 
