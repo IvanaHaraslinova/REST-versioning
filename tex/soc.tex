@@ -16,8 +16,7 @@ The architecture is layered. Layers can be multiple and can differ according to 
 \label{fig:soa-architecture}
 \end{figure}  
 
-One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. \textit{"SOA is based on a decomposition of enterprise IT assets and separation of 'stable' IT artifacts (services) from 'changeable' artifacts (business processes), orchestrating services into IT solutions (processes)."} \cite{website:versioning-in-soa}. %(http://msdn.microsoft.com/en-us/library/bb491124.aspx) 
-
+One of the main advantages of a service-oriented architectural style is its ability to efficiently deal with changes. \textit{"SOA is based on a decomposition of enterprise IT assets and separation of 'stable' IT artifacts (services) from 'changeable' artifacts (business processes), orchestrating services into IT solutions (processes)."} \cite{website:versioning-in-soa}.
 Above mentioned services are essential part of SOA. Relations between them and a business process constituted by services are visualized in Figure \ref{fig:business-process-services}. The business process is a process from the real world whose workflow is simulated by services. A single task of business process is composed by one or more of the services. Services perform the logic, comunicate with underlying layers to retrieve and store data to operate as a business process.
 
 \begin{figure}[htp] \centering{
@@ -30,7 +29,7 @@ The speed of changes in the business is too fast to be passed directly into deve
 
 \section{Services}
 \label{sec:services}
-\gls{service-oriented-design} is composed from logic units - services. Every service is a standalone object or component. Every service has its own functional context and related capabilities. Each service is deployed independently on other ones and on the system which uses it. It allows a parallel development, one service can be a part of many products of a corporation.
+SOA is composed from logic units - services. Every service is a standalone object or component. Every service has its own functional context and related capabilities. Each service is deployed independently on other ones and on the system which uses it. It allows a parallel development, one service can be a part of many products of a corporation.
 \textit{"The essence of Service in the SOA context is the business abstraction - that is a representation of functionality and/or data presented in business context."} \cite{agile-architecture}
 
 \subsection{Levels of a service} 
@@ -92,33 +91,7 @@ Diagram with the stages is shown in Figure \ref{fig:service-lifecycle}. Here is 
 \end{enumerate}
 
 
-
-%TODO picture of service levels
-
-%\subsection{Service categories and types} 
-
-%There are two main types of services. The first type is composed by infrastructural services which provide the facilities and aren't a part of application. To the second type belongs services which are the part of the application and provide main logic.
-
 \bigskip
-%TODO describe services
-
-%Service categories \cite{website:ontology-taxonomy} :
-%\begin{description}
- % \item[Bus services] can be further divided into 
-  %\begin{enumerate}
-   % \item Communication services 
-    %\item Utility services
-  %\end{enumerate}
-  %\item[Application services] consist of   
-  %\begin{enumerate}
-   % \item Entity services
-    %\item Capability services
-    %\item Activity services
-    %\item Process services
-  %\end{enumerate}
-%\end{description}
-
-%TODO image 
 
 \subsection{Service granularity}
 \label{sec:granularity}
@@ -143,26 +116,3 @@ On the other side the process could be composed of fine-grained services. One se
 
 \subsection{Web services}
 Web services are one group of services, these are intended to work on a network. They are components of \gls{web-applications}. Web services can be designed using different styles. The most popular nowadays is Representational State Transfer (REST) architectural style. This thesis deals with REST architectural style and REST services. They will be described in detail within the Chapter \ref{chap:rest}.
-
-
-%%\subsubsection*{\textbf{Guacamole} \hfill \emph{http://guac-dev.org/}}
-%%\label{subsec:guacamole}
-%% \ref{}.
-%%    \item \textbf{[název předmětu 1]} \hfill \\
-%%    odkaz na stránku předmětu, obsahující pouze název a informace o spolufinancování \gls{eu}
-    
-%%\begin{table}
-%%  \caption{Základní typy entit v Drupalu}
-  %%\label{tab:typy-entit}
-  %%\begin{tabular}{ | p{3cm} | l | c | c | }
-   %% \hline 
-    %%Typ entity & Strojový název & Dostupnost polí & Rozšiřitelnost \\ \hline 
-    %%Komentář & comment & \checkmark & \checkmark \\ \hline 
-    %%Soubor & file &  & \\ \hline 
-    %%Slovník & vocabulary &  & \\ \hline 
-    %%Uzel & node & \checkmark & \checkmark \\ \hline 
-    %%Uživatel & user & \checkmark & \checkmark \\ \hline 
-    %%Záznam slovníku & term & \checkmark & \checkmark \\ \hline             
-  %%\end{tabular}
-%%\end{table}
-%% \emph \emph \texttt.

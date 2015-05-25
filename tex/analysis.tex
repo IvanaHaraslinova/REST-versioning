@@ -17,7 +17,7 @@ The highest layer of application is Integration layer containing service API. It
 Services of Invest s.r.o. are REST-based. The HTTP methods are used for communication between the company and its clients. A service is accessed by URL template and HTTP verbs such as GET, POST, PUT and DELETE. For example, to retrieve a bank account with concrete id the service call looks like: 
 
 \begin{lstlisting}
-    GET    /api/bankaccounts/{bankAccountId}
+    GET    /api/v3/bankaccounts/{bankAccountId}
 \end{lstlisting}
 
 In service request the \emph{\{bankAccountId\}} part of URL is replaced by bank account identifier which the client wants to obtain in response.
@@ -34,11 +34,11 @@ Invest s.r.o service API contains many services. Their capabilities and usage is
 As an example, client has a login process through which an user passes to access his user account. User has to provide the user name, user password and memorable word. After filling them correctly the user can operate with his account. The business process is composed form these requests:
 
 \begin{lstlisting}
-    POST /api/session
-    POST /api/memorablewords
+    POST /api/v3/session
+    POST /api/v3/memorablewords
 \end{lstlisting}
   
-To log-in into the account client sends two request to the server (Figure \ref{fig:login-process}). The first of them authenticates the credentials and starts the session. The other one make another identity check. It posts the user's answer on asked memorable word characters. When both requests return successful response (200 OK), the user is logged in to his account otherwise the access is denied.
+To log-in into the account client sends two request to the server (Figure \ref{fig:login-process}). The first of them authenticates the credentials and starts the \gls{session}. The other one make another identity check. It posts the user's answer on asked memorable word characters. When both requests return successful response (200 OK), the user is logged in to his account otherwise the access is denied.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/login-process.pdf}}
@@ -46,18 +46,8 @@ To log-in into the account client sends two request to the server (Figure \ref{f
 \label{fig:login-process}
 \end{figure} 
 
-\section{Versioning of services}
-The Invest s.r.o. deals with many change requests within the provided application. The company has to adapt the application functionality to the newest legislative rules deriving from financial authorities. Other adjustment requests are asked by clients. The change requests can result in modifications of services.
 
-\subsection{Versioning strategy}
-The strategy of Invest s.r.o is based on avoiding the breaking changes. The company is trying to transform every change in compatible one. A new version of service interface doesn't break the usage of API by the clients. The company has a \emph{flexible strategy} to versioning the services. The comptible changes don't cause the creation of a new version.
-The API in fact has its version. The new API version is created when it is convenient for functionality of API.
- 
-
-\subsection{Version lifecycle}
-The version of Invest.API is created after a period of time and certain amount of changes, other reason can be a necessity to make a breaking change. Every modification of service interface is on implementation level. These changes cause that the code is slowly becoming big and harder to maintain. In cerain moment the Invest s.r.o. can deside to create a new version of API. API version contains cleaned code and its number increases.  Duration of version lifecycle in the company is in the range of years. 
- 
-\subsection{Developmnet and deployment}
+\section{Developmnet and deployment}
 The company uses an \gls{scm} (SCM) to track the changes made in service implementation during the development phase. There is a master version of API to which are promoted the changes from multiple developers. The implementation is then built by Continuous Integration tool. 
 
 The CI automaticaly increases the version of implementation after every successful build. The new version's DLL file is deployed on the environment. 
@@ -77,6 +67,18 @@ Development environment serves for development. Internal test environment is for
 
 Every API version has its hierarchy of environments on which is developed and tested. Every client has its own production environment with one deployed version of API. When client wants to switch to the different version, it has to be deployed replacing the old one.
 
+
+\section{Versioning of services}
+The Invest s.r.o. deals with many change requests within the provided application. The company has to adapt the application functionality to the newest legislative rules deriving from financial authorities. Other adjustment requests are asked by clients. The change requests can result in modifications of services.
+
+\subsection{Versioning strategy}
+The strategy of Invest s.r.o is based on avoiding the breaking changes. The company is trying to transform every change in compatible one. A new version of service interface doesn't break the usage of API by the clients. The company has a \emph{flexible strategy} to versioning the services. The comptible changes don't cause the creation of a new version.
+The API in fact has its version. The new API version is created when it is convenient for functionality of API.
+ 
+
+\subsection{Version lifecycle}
+The version of Invest.API is created after a period of time and certain amount of changes, other reason can be a necessity to make a breaking change. Every modification of service interface is on implementation level. These changes cause that the code is slowly becoming big and harder to maintain. In cerain moment the Invest s.r.o. can deside to create a new version of API. API version contains cleaned code and its number increases.  Duration of version lifecycle in the company is in the range of years. 
+ 
 \subsection{API version in URL}
 The company is versioning whole service API, not only services or service methods. The approach to versioning is the one which is used to version software in general. When a new version is created and deployed to production environment the old version is no longer accessible. It can be said that the version number in URL is informative. It suggests to clients that they have to call requests according to \gls{documentation} of this API version. Current API version of Invest s.r.o has the version \emph{v3}. For example, let's have a Customers service in Invest.API. The URL to post action than looks like:
 
@@ -84,7 +86,7 @@ The company is versioning whole service API, not only services or service method
   POST   \api\v3\customers
 \end{lstlisting}
 
-The version in URL can't be changed because the API doesn't have other accessible version. The URL is stable. Eventual changes in Customer service are always backward-compatible and wouldn't influence the consumers. 
+The version in URL can't be changed because the API doesn't have other accessible version. The URL is stable. Eventual changes in Customer service are always backward compatible and wouldn't influence the consumers. 
 
 \subsection{Service interface changes}
 When it is needed to change a service interface, the company tries to don't affect any of its clients. For example after a change in implementation of service one of the elements of representation doesn't hold enough information anymore. There is a need to encapsulate this element into another one. Let's have bank account which representation contains mandatory elements. The request is:
@@ -157,25 +159,12 @@ It can happen that one of the clients have a specific change request which is ou
 
 At some point it occurs then there will be new version of API. All the duplications within a representation and the code are removed. The version of API is increased and it is created a new service documentation.
 
-Versioning technique used by Invest s.r.o. is versioning on the level of service implementation. Every change which is done is made in code. There is just one version on API available for consumers. It is the one deployed on production environment. When a client ask for a change it is designed to be backward-compatible.
+Versioning technique used by Invest s.r.o. is versioning on the level of service implementation. Every change which is done is made in code. There is just one version on API available for consumers. It is the one deployed on production environment. When a client ask for a change it is designed to be backward compatible.
 
 
-\section{Breaking-changes and versioning}
-Invest s.r.o doesn't utilize the service specific versioning approach and version just an implementation. Although the version number is part of the URL there is no intention to create a new coexisting version accessible thanks to choice of particular endpoint address.
+\section{Summary}
+Invest s.r.o doesn't utilize the service specific versioning approach and versions just an implementation. Although the version number is part of the URL there is no intention to create a new coexisting version accessible thanks to choice of particular endpoint address.
 The Invest s.r.o. stands for versioning based on headers. Company's architecures believe it is a more RESTful approach. Implementation of headers for verisonig would reqire large amount of modifications on company side but also on client side. This decision would need a vast analysis. The integration of new approach would be a long term process. 
-
-This thesis can be extended
-
-
-%Although the services offers another approach to versioning 
-%In my opinion this approach ensures the goal of services which is providing the application logic to client.    is is offering enough time to clients to integrate the changes. They don't have access to more versions of API but just to the on 
-
-%
-
-
-
-
-
 
 
 

@@ -1,1 +1,1 @@
-The thesis is concerned on service-oriented architecture (SOA) and service versioning. It contains the introduction to SOA and services. The main topic is versioning of the services, the approaches to 
+The thesis is concerned on service-oriented architecture (SOA) and service versioning. It contains the introduction to SOA and services. The main topic is versioning of REST-based services. There are described possible approaches to version and to accest them by consumer. The thesis presents an analysis of application of versioning in existing company.
