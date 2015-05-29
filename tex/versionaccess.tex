@@ -1,23 +1,23 @@
 \chapter{Version access}
 \label{chap:versionaccess}
 
-When the service is versioned using new environment for every new version the version access is straightforward. The version has always the same endpoint address. One environment holds only one version and to choose between versions there is needed to change the environment against which consumer's requests are called. While every environment has its own address.
+When the service is versioned using new environment for every new version, the version access is straightforward. The version has always the same endpoint address. One environment holds only one version and to choose between versions there is need to change the environment against which consumer's requests are called. While every environment has its own address.
 
-When the service interface is versioned consumers need to know how to access requred version. Producer of service creates an access point for the new version and consumer has to modify his implementation according to agreed pattern to switch to the new version. 
+When the service interface is versioned consumers need to know how to access required version. Producer of service creates an access point for the new version and consumer has to modify his implementation according to agreed pattern to switch to the new version. 
 
 \section{Access approaches}
-Deployment of the versions can be performed various ways. There are two main approaches \cite{applied-soa}:
+Deployment of the versions can be performed in various ways. There are two main approaches \cite{applied-soa}:
 \begin{enumerate}
   \item Version parameter
   \item Multiple endpoint addresses
 \end{enumerate}
 
 \subsection{Version parameter}
-Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then then the object of versioning is the implementation. Behind one service which is accessed by one URI can be multiple implementations.
+Every consumer of the services uses the same endpoint address to access the services. Single service has the same address for any of its implementations. Then the object of versioning is the implementation. Behind one service which is accessed by one URI can be multiple implementations.
 To access a requested version of the implementation a version parameter (also called covenant) can be used. It is present in request message sent by consumer. Thanks to the parameter the request is routed to appropriate implementation version.
 
 
-The version parameter is carried in request header field. It can be used the existing header or can be implemented new one. From existing headers the \emph{Accept} header is used.
+The version parameter is carried in request header field. The existing header or can be used or a new one can be implemented. From existing headers the \emph{Accept} header is a good candidate.
 
 
 This approach is an advantage for consumers. Release of a new version has minimal impact on them. But on the other side it requires a special attention on version strategy. It can lead to collision of names, database names, etc.
@@ -46,10 +46,10 @@ The address example suggests that the API is in version \emph{v2}. The request i
 
 \bigskip
 
-In this approach every version has its own endpoint address. It is hardcoded in version implementation. This approach is easy to understand and comparing to Version in header, it is easier to implement. For different versioning units the URL can contain the version on different place. As was already mention the method versioning requires a change of addressing schema. It's mandatory to specify the method and its version. 
+In this approach every version has its own endpoint address. It is hard coded in version implementation. This approach is easy to understand and comparing to Version in header, it is easier to implement. For different versioning units the URL can contain the version on different place. As was already mentioned the method versioning requires a change of addressing schema. It's mandatory to specify the method and its version. 
 
 \begin{table}
-\caption{Exapmples of version units URL addresses}
+\caption{Examples of version units URL addresses}
 \begin{center}
 \begin{tabular}{l l l}
 Version unit & URL Path  \\ \hline
@@ -62,10 +62,10 @@ Method & api/customers/GetCustomer/v3  \\
 \end{table}
 
 \subsection{Versioning based on headers}
-There are several different options of using a header to identify the version of services. Headers are part of the HTTP requests. An existing header or a custom one can be used. From existing headers, the \emph{Accept} header is suitble. It indicates the media types of a request. Creating a custom header offers the creation of header with arbitrary name which lists the version. Version parameter is added to the header to ensure the access to specific version of API.
+There are several different options of using a header to identify the version of services. Headers are part of the HTTP requests. An existing header or a custom one can be used. From existing headers, the \emph{Accept} header is suitable. It indicates the media types of a request. Creating a custom header offers the creation of header with arbitrary name which lists the version. Version parameter is added to the header to ensure the access to specific version of API.
 
 \subsubsection{Accept header}
-The version can be identified by Accept header. "The Accept request-header field can be used to specify certain media types which are acceptable for the response." \cite{website:w3} Accept haeder contains \gls{mime-types} which are typically \gls{xml} or \gls{json}. It can specify the limited subset of accepted media types. Than the request can look like:
+The version can be identified by Accept header. "The Accept request-header field can be used to specify certain media types which are acceptable for the response." \cite{website:w3} Accept header contains \gls{mime-types} which are typically \gls{xml} or \gls{json}. It can specify the limited subset of accepted media types. Than the request can look like:
 
 \begin{lstlisting}
     {GET /accounts/123 HTTP/1.1}
@@ -85,11 +85,11 @@ The sent request is a GET operation for the account service. The response with r
     }       
 \end{lstlisting}
 
-Custom vendor MIME type \emph{vnd.v2} was created. Common feature of Version parameter in header is unchaging URL address. The disadvantage is that customers don't know what type of the response message can expect from the custom MIME type. Media type versioning doesn't provide enough semantic information.
+Custom vendor MIME type \emph{vnd.v2} was created. Common feature of Version parameter in header is unchanging URL address. The disadvantage is that customers don't know what type of response message can expect from the custom MIME type. Media type versioning doesn't provide enough semantic information.
 
 
 \subsubsection{Custom header}
-Provider of services can implement a custom header to define version of the service. It has to be unique, so that it is not already reserved in predefined HTTP headers. An example of custom header is \emph{api-version}. The custom header than has to be implemented in services and has to route the request to appropriate version.
+Provider of services can implement a custom header to define version of the service. It has to be unique, so that it is not already reserved in predefined HTTP headers. An example of custom header is \emph{api-version}. The custom header then has to be implemented in services and has to route the request to appropriate version.
 
 \begin{lstlisting}
     {GET /accounts/123 HTTP/1.1}
@@ -98,7 +98,7 @@ Provider of services can implement a custom header to define version of the serv
 
 
 \subsection{Summary}
-On many programming blogs can be found various opinions about approaches to access the version. Completely opposite views on the suitable way to access the resource can be found. Both of the approaches, URL versioning and version parameter in header, have many arguments against, at some poins they violate certain rules (REST constraints, description of resource,..) but they still work in favour of building the API.
+On many programming articles various opinions about approaches to access the version can be found. Completely opposite views on the suitable way to access the resource are captured. Both of the approaches, URL versioning and version parameter in header, have many arguments against them, at some points they violate certain rules (REST constraints, description of resource,..) but they still work in favour of building the API.
 
 \subsubsection{Subjective opinions}
 \emph{"If we concur that the URL represents the resource then unless we’re trying to represent different versions of the resource itself then no, I don’t think the URL should change."\cite{website:wrong-ways}}
@@ -114,9 +114,9 @@ On many programming blogs can be found various opinions about approaches to acce
 
 \bigskip
 
-It can be said that there are two main groups of programmers. One found their opinion in HATEOAS principle. HATEOAS principle says that the URL should be permalink. URL for the same resource should't change in time. When a new version of API is accessible the resources wasn't changed, the operation work over the same resources consequently the URL address to them shouldn't be changed. This is the main reason why headers sholud be used for versioning. 
+It can be said that there are two main groups of programmers. One found their opinion in HATEOAS principle. HATEOAS principle says that the URL should be permalink. URL for the same resource should not change in time. When a new version of API is accessible the resources wasn't changed, the operation work over the same resources consequently the URL address to them shouldn't be changed. This is the main reason why headers should be used for versioning. 
 
-On the other side stands a group of speaking are arguments that headers are not the sematnic enough to describe the resource, accept header is hard to test or due to unchanging URL the response for a request can be cached, after sending another request with the same URL but different version in header the wrong version response will be returned from the cache.
+On the other side stands a group of speaking that headers are not semantic enough to describe the resource, accept header is hard to test. Due to unchanging URL the response for a request can be cached, after sending another request with the same URL but different version in header the wrong version response will be returned from the cache.
 
 \bigskip
 
@@ -133,7 +133,7 @@ To conclude there is no the right way to access the version, the choice is up to
 
 \section{Versioning approach of popular REST APIs}
 The versioning is inevitable because the application is changing in time. The companies have to version their REST APIs and each of them can choose one or more principles to implement the access to their resources. 
-Here are exapmle of the versioning approaches which are used by well known web applications with REST API. \cite{website:restapi-example}
+Here are examples of the versioning approaches which are used by well known web applications with REST API. \cite{website:restapi-example}
 
 \begin{table}
 \caption{Versioning approach of popular REST APIs}
@@ -193,4 +193,6 @@ youtube/v3
 \end{center}
 \end{table}
 
-From the expamle is obvious that none of the approaches is the right one, provders are using all mentioned with the prevalece of URL versioning.
+From the example is obvious that none of the approaches is the right one, providers are using all mentioned with the prevalence of URL versioning.
+
+

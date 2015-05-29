@@ -1,9 +1,9 @@
 \chapter{Analysis of existing company}
 
-As an example of an existing service implementation let's take an anonymous international company. For the purpose of this thesis it will be named Invest s.r.o.. It operates in finantial sector and provides a platform for investment companies. Invest s.r.o. already exists more than ten years and during this period was reorganised to service-oriented architecture. The company has many clients in its portfolio. Many of them are consuming services provided by this company.
+As an example of an existing service implementation let's take an anonymous international company. For the purpose of this thesis it will be named Invest s.r.o. It operates in financial sector and provides a platform for investment companies. Invest s.r.o. already exists more than ten years and during this period it was reorganised to service-oriented architecture. The company has many clients in its portfolio. Many of them are consuming services provided by the company.
 
 \section{Architecture overview}
-Architecture of Invest s.r.o. can be divided into multiple layers. In sake of providing services to the third party the application is composed by Data layer, Application layer, Integration layer as is shown on Figure \ref{fig:invest-architecture}.
+Architecture of Invest s.r.o. can be divided into multiple layers. In sake of providing services to the third party the application is composed of Data layer, Application layer, Integration layer as is shown on figure \ref{fig:invest-architecture}.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/invest-architecture.pdf}}
@@ -11,7 +11,7 @@ Architecture of Invest s.r.o. can be divided into multiple layers. In sake of pr
 \label{fig:invest-architecture}
 \end{figure} 
 
-The highest layer of application is Integration layer containing service API. It provides access points to underlying logic. Services consumers integrate it to their applicaton. The Application layer holds the whole business logic. Every logical functionality is performed in this layer. Data layer is accessed by \gls{dal} components, it contains various data stores.
+The highest layer of application is Integration layer containing service API. It provides access points to underlying logic. Services consumers integrate it to their application. The Application layer holds the whole business logic. Every logical functionality is performed in this layer. Data layer is accessed by \gls{dal} components, it contains various data stores.
 
 \section{Integration layer}
 Services of Invest s.r.o. are REST-based. The HTTP methods are used for communication between the company and its clients. A service is accessed by URL template and HTTP verbs such as GET, POST, PUT and DELETE. For example, to retrieve a bank account with concrete id the service call looks like: 
@@ -29,16 +29,16 @@ HTTP messages can be sent in XML or JSON format. Services are able to process bo
     Accept: application/json
 \end{lstlisting}
 
-Invest s.r.o service API contains many services. Their capabilities and usage is part of an available \gls{documentation}. Client can take set of services to compose a business processes. 
+Invest s.r.o service API contains many services. Their capabilities and usage is part of an available \gls{documentation}. Client can take set of services to compose a business process. 
 
-As an example, client has a login process through which an user passes to access his user account. User has to provide the user name, user password and memorable word. After filling them correctly the user can operate with his account. The business process is composed form these requests:
+As an example, client has a login process through which an user passes to access his account. User has to provide the name, password and memorable word. After filling them correctly the user can operate with his account. The business process is composed form these requests:
 
 \begin{lstlisting}
     POST /api/v3/session
     POST /api/v3/memorablewords
 \end{lstlisting}
   
-To log-in into the account client sends two request to the server (Figure \ref{fig:login-process}). The first of them authenticates the credentials and starts the \gls{session}. The other one make another identity check. It posts the user's answer on asked memorable word characters. When both requests return successful response (200 OK), the user is logged in to his account otherwise the access is denied.
+To log-in into the account client sends two request to the server (figure \ref{fig:login-process}). The first of them authenticates the credentials and starts the \gls{session}. The other one makes another identity check. It posts the user's answer on asked memorable word characters. When both requests return successful response (200 OK), the user is logged in to his account. Otherwise the access is denied and service returns 403 Forbidden.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=8cm]{img/login-process.pdf}}
@@ -48,14 +48,14 @@ To log-in into the account client sends two request to the server (Figure \ref{f
 
 
 \section{Developmnet and deployment}
-The company uses an \gls{scm} (SCM) to track the changes made in service implementation during the development phase. There is a master version of API to which are promoted the changes from multiple developers. The implementation is then built by Continuous Integration tool. 
+The company uses an \gls{scm} (SCM) to track the changes made in service implementation during the development phase. There is a master version of API to which the changes from multiple developers are promoted. The implementation is then built by Continuous Integration tool. 
 
-The CI automaticaly increases the version of implementation after every successful build. The new version's DLL file is deployed on the environment. 
+The CI automatically increases the version of implementation after every successful build. The new version's DLL file is deployed to the environment. 
 
-There are more than one version of API developed at the same time. The concrete version is maintained until it has a client which uses it. Parallel development means that bugs have to be fixed in every used version. Thanks to SCM it is possible to transfer a fix accross the versions which contains the error. 
+There is more than one version of API developed at the same time. The concrete version is maintained while it has a client which uses it. Parallel development means that bugs have to be fixed in every used version. Thanks to SCM it is possible to transfer a fix across the versions which contains the error. 
 
 \subsection{Environments}
-The Invest s.r.o uses many environments to develop, test, simulate usage and provide the API. On Figure \ref{fig:environments-hierarchy} is an example of the environment hierarchy on which the API version is deployed before is deployed in production.
+The Invest s.r.o uses many environments to develop, test, simulate usage and provide the API. On figure \ref{fig:environments-hierarchy} is an example of the environment hierarchy on which the API version is deployed before it is deployed to production.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=12cm]{img/environments-hierarchy.pdf}}
@@ -63,24 +63,24 @@ The Invest s.r.o uses many environments to develop, test, simulate usage and pro
 \label{fig:environments-hierarchy}
 \end{figure} 
 
-Development environment serves for development. Internal test environment is for functional testing. On \gls{uat} environment users tests whether the application handle all real-world scenarios according to specification. Staging environment take a part before the production release. It serves to discover eventual errors before the deployment into production. Production environment is used by client. Production support is environment synchronized with Production one, it provides the possibility to support the API which is already in use.
+Development environment serves for development. Internal test environment is for functional testing. On \gls{uat} environment users tests whether the application handles all real-world scenarios according to specification. Staging environment takes a part before the production release. It serves to discover eventual errors before the deployment into production. Production environment is used by client. Production support is environment synchronized with Production one, it provides the possibility to support the API which is already in use.
 
-Every API version has its hierarchy of environments on which is developed and tested. Every client has its own production environment with one deployed version of API. When client wants to switch to the different version, it has to be deployed replacing the old one.
+Every API version has its hierarchy of environments on which is developed and tested. Every client has its own production environment with one deployed version of API. When a client wants to switch to the different version, it has to be deployed to, replacing the old one.
 
 
 \section{Versioning of services}
 The Invest s.r.o. deals with many change requests within the provided application. The company has to adapt the application functionality to the newest legislative rules deriving from financial authorities. Other adjustment requests are asked by clients. The change requests can result in modifications of services.
 
 \subsection{Versioning strategy}
-The strategy of Invest s.r.o is based on avoiding the breaking changes. The company is trying to transform every change in compatible one. A new version of service interface doesn't break the usage of API by the clients. The company has a \emph{flexible strategy} to versioning the services. The comptible changes don't cause the creation of a new version.
-The API in fact has its version. The new API version is created when it is convenient for functionality of API.
+The strategy of Invest s.r.o is based on avoiding the breaking changes. The company is trying to transform every change in a compatible one. A new version of service interface doesn't break the usage of API by the clients. The company has a \emph{flexible strategy} to versioning the services. The compatible changes don't cause the creation of a new version.
+The API in fact has its version. The new API version is created when it is convenient for the functionality of API.
  
 
 \subsection{Version lifecycle}
-The version of Invest.API is created after a period of time and certain amount of changes, other reason can be a necessity to make a breaking change. Every modification of service interface is on implementation level. These changes cause that the code is slowly becoming big and harder to maintain. In cerain moment the Invest s.r.o. can deside to create a new version of API. API version contains cleaned code and its number increases.  Duration of version lifecycle in the company is in the range of years. 
+The version of Invest.API is created after a period of time and certain amount of changes. Other reason can be a necessity to make a breaking change. Every modification of a service interface is on implementation level. These changes cause that the code is slowly becoming big and hard to maintain. In certain moments the Invest s.r.o. can decide to create a new version of API. API version contains cleaned code and its number increases. Duration of version lifecycle in the company is in the range of years. 
  
 \subsection{API version in URL}
-The company is versioning whole service API, not only services or service methods. The approach to versioning is the one which is used to version software in general. When a new version is created and deployed to production environment the old version is no longer accessible. It can be said that the version number in URL is informative. It suggests to clients that they have to call requests according to \gls{documentation} of this API version. Current API version of Invest s.r.o has the version \emph{v3}. For example, let's have a Customers service in Invest.API. The URL to post action than looks like:
+The company is versioning whole service API, not only services or service methods. The approach to versioning is the one which is used to version software in general. When a new version is created and deployed to production environment the old version is no longer accessible. It can be said that the version number in URL is only informative. It suggests to clients that they have to call requests according to \gls{documentation} of this API version. Current API version of Invest s.r.o has the version \emph{v3}. For example, let's have a Customers service in Invest.API. The URL to post action than looks like:
 
 \begin{lstlisting}
   POST   \api\v3\customers
@@ -89,7 +89,7 @@ The company is versioning whole service API, not only services or service method
 The version in URL can't be changed because the API doesn't have other accessible version. The URL is stable. Eventual changes in Customer service are always backward compatible and wouldn't influence the consumers. 
 
 \subsection{Service interface changes}
-When it is needed to change a service interface, the company tries to don't affect any of its clients. For example after a change in implementation of service one of the elements of representation doesn't hold enough information anymore. There is a need to encapsulate this element into another one. Let's have bank account which representation contains mandatory elements. The request is:
+When it is needed to change a service interface, the company tries to not affect any of its clients. For example after a change in implementation of service one of the elements of representation doesn't hold enough information anymore. There is a need to encapsulate this element into another one. Let's have bank account whose representation contains mandatory elements. The request is:
 
 \begin{lstlisting}
   <?xml version="1.0"?>
@@ -120,7 +120,7 @@ After a change of the requirements there is a need to have \emph{BankAddress} el
   </BankAccount>
 \end{lstlisting}
 
-If the change will be deployed it will harm the usability of application for each client who expects the old version. It is a breaking change which would force all clients to integrate this change or the provider to create a new version of a service. The Invest s.r.o. doesn't want to change the service interface but adds a new feature. The new representation contains new elemenet with the encapsulation and at the same time the old element which is marked as obsolete.
+If the change will be deployed it will harm the usability of application for each client who expects the old version. It is a breaking change which would force all clients to integrate this change or the provider to create a new version of a service. The Invest s.r.o. doesn't want to change the service interface but adds a new feature. The new representation contains a new element with the encapsulation and at the same time the old element which is marked as obsolete.
 
 \begin{lstlisting}
   <?xml version="1.0"?>
@@ -140,7 +140,7 @@ If the change will be deployed it will harm the usability of application for eac
   </BankAccount>
 \end{lstlisting}
 
-Both elements have to be optional because clients make calls just with one of them. In service implementation the code for both kinds of received data has to be present. The situation when one client sends a request with obsolete element \emph{BankName} and the other one with the new element \emph{BankDetails} is shown on Figure \ref{fig:compatible-api-change}. Both requests are valid BankAccounts service calls.
+Both elements have to be optional because clients make calls just with one of them. In service implementation the code for both kinds of received data has to be present. The situation when one client sends a request with obsolete element \emph{BankName} and the other one with the new element \emph{BankDetails} is shown on figure \ref{fig:compatible-api-change}. Both requests are valid BankAccounts service calls.
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=12cm]{img/compatible-api-change.pdf}}
@@ -148,7 +148,7 @@ Both elements have to be optional because clients make calls just with one of th
 \label{fig:compatible-api-change}
 \end{figure} 
 
-It can happen that one of the clients have a specific change request which is out of the API functionality goals and moreover the change will be breaking. This change will be part of the new client-specific service (Figure \ref{fig:custom-service}). The service is than available just for this client. 
+It can happen that one of the clients have a specific change request which is out of the API functionality goals and moreover the change will be a breaking one. This change will be part of the new client-specific service (figure \ref{fig:custom-service}). The service is then available just for this client. 
 
 \begin{figure}[htp] \centering{
 \includegraphics[width=10cm]{img/custom-service.pdf}}
@@ -163,8 +163,8 @@ Versioning technique used by Invest s.r.o. is versioning on the level of service
 
 
 \section{Summary}
-Invest s.r.o doesn't utilize the service specific versioning approach and versions just an implementation. Although the version number is part of the URL there is no intention to create a new coexisting version accessible thanks to choice of particular endpoint address.
-The Invest s.r.o. stands for versioning based on headers. Company's architecures believe it is a more RESTful approach. Implementation of headers for verisonig would reqire large amount of modifications on company side but also on client side. This decision would need a vast analysis. The integration of new approach would be a long term process. 
+Invest s.r.o doesn't utilize the service specific versioning approach and versions just the implementation. Although the version number is part of the URL there is no intention to create a new coexisting version accessible thanks to choice of particular endpoint address.
+The Invest s.r.o. stands for versioning based on headers. Company's architectures believe it is a more RESTful approach. Implementation of headers for versioning would require large amount of modifications on the company side but also on the client side. This decision would need a vast analysis. The integration of new approach would be a long term process. 
 
 
 
